@@ -34,7 +34,7 @@ if (new_vertex->content == NULL)
 free(new_vertex);
 return (NULL);
 }
-new_vertex->index = graph->nb_vertices;
+new_vertex->index = graph->nb_vertices++;
 new_vertex->nb_edges = 0;
 new_vertex->edges = NULL;
 new_vertex->next = NULL;
@@ -46,10 +46,8 @@ else
 {
 for (current = graph->vertices; current->next; current = current->next)
 {
-;
-}
+;}
 current->next = new_vertex;
 }
-graph->nb_vertices++;
 return (new_vertex);
 }
