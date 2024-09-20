@@ -49,7 +49,7 @@ src_edge->next = NULL;
 for (current_edge = src_vertex->edges; current_edge; current_edge = current_edge->next)
 {
 ; }
-cuurent_edge = src_edge;
+current_edge = src_edge;
 if (type == BIDIRECTIONAL)
 {
 dest_edge = (edge_t *) malloc(sizeof(edge_t));
