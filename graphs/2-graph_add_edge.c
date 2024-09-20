@@ -12,12 +12,13 @@
  * Return: 1 on success, or 0 on failure
  */
 
-int graph_add_edge(graph_t *graph, const char *src, 
-                    const char *dest, edge_type_t type)
+int graph_add_edge(graph_t *graph, const char *src,
+const char *dest, edge_type_t type)
 {
 vertex_t *current, *src_vertex = NULL, *dest_vertex = NULL;
 edge_t *src_edge, *dest_edge, *current_edge;
-if (!graph || !src || !dest || (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
+if (!graph || !src || !dest || 
+(type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 { return (0); }
 for (current = graph->vertices; current; current = current->next)
 {
@@ -50,8 +51,7 @@ if (!dest_edge)
 {
 free(src_edge);
 return (0); }
-dest_edge->dest = src_vertex;
-dest_edge->next = NULL;
+dest_edge->dest = src_vertex, dest_edge->next = NULL;
 if (!dest_vertex->edges)
 {
 dest_vertex->edges = dest_edge; }
