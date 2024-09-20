@@ -45,7 +45,9 @@ graph->vertices = new_vertex;
 else
 {
 for (current = graph->vertices; current->next; current = current->next)
-    ;
+{
+;
+}
 current->next = new_vertex;
 }
 graph->nb_vertices++;
