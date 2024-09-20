@@ -15,7 +15,7 @@
 int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_t type)
 {
 vertex_t *current, *src_vertex, *dest_vertex;
-edge_t *src_edge, *dest_edge;
+edge_t *src_edge, *dest_edge, *current_edge;
 if (!graph || !src || !dest || (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 {
 return (0);
@@ -46,21 +46,39 @@ return (0);
 }
 src_vertex->nb_edges++;
 src_edge->dest = dest_vertex;
-src_edge->next = src_vertex->edges;
+src_edge->next = NULL;
+if (!src_vertex->edges)
+{
 src_vertex->edges = src_edge;
+}
+else
+{
+for (current_edge = src_vertex->edges; current_edge->next; current_edge = current_edge->next)
+{
+; }
+current_edge->next = src_edge;
+}
 if (type == BIDIRECTIONAL)
 {
 dest_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!dest_edge)
 {
-src_vertex->edges = src_edge->next;
-free(src_edge);
 return (0);
 }
-dest_edge->dest = src_vertex;
-dest_edge->next = dest_vertex->edges;
-dest_vertex->edges = dest_edge;
 dest_vertex->nb_edges++;
+dest_edge->dest = src_vertex;
+dest_edge->next = NULL;
+if (!dest_vertex->edges)
+{
+dest_vertex->edges = dest_edge;
+}
+else
+{
+for (current_edge = dest_vertex->edges; current_edge->next; current_edge = current_edge->next)
+{
+; }
+current_edge->next = dest_edge;
+}
 }
 return (1);
 }
