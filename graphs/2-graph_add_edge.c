@@ -32,7 +32,8 @@ if (src_vertex && dest_vertex)
 if (!src_vertex || !dest_vertex)
 { return (0); }
 src_edge = (edge_t *) malloc(sizeof(edge_t));
-if (!src_edge) { return (0); }
+if (!src_edge)
+{ return (0); }
 src_edge->dest = dest_vertex;
 src_edge->next = NULL;
 if (!src_vertex->edges)
@@ -45,11 +46,9 @@ current_edge->next; current_edge = current_edge->next)
 current_edge->next = src_edge; }
 src_vertex->nb_edges++;
 if (type == BIDIRECTIONAL)
-{
-dest_edge = (edge_t *) malloc(sizeof(edge_t));
+{ dest_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!dest_edge)
-{
-free(src_edge);
+{ free(src_edge);
 return (0); }
 dest_edge->dest = src_vertex, dest_edge->next = NULL;
 if (!dest_vertex->edges)
