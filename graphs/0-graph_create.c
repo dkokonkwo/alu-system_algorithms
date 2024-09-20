@@ -9,7 +9,7 @@
 
 graph_t *graph_create(void)
 {
-graph_t graph = (graph_t *) malloc(sizeof(graph_t));
+graph_t *graph = (graph_t *) malloc(sizeof(graph_t));
 if (graph == NULL)
 {
 printf("Memory allocation failed\n");
