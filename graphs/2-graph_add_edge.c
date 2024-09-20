@@ -64,4 +64,5 @@ for (current_edge = dest_vertex->edges; current_edge; current_edge = current_edg
 ; }
 current_edge = dest_edge;
 }
+return (1);
 }
