@@ -11,13 +11,10 @@
  */
 vertex_t *graph_add_vertex(graph_t *graph, const char *str)
 {
-vertex_t *current = graph->vertices;
-vertex_t *new_vertex = (vertex_t *) malloc(sizeof(vertex_t));
+vertex_t *current, new_vertex;
 if (graph == NULL || str == NULL)
-{
-free(new_vertex);
-return (NULL);
-}
+    return (NULL);
+current = graph->vertices;
 while (current != NULL)
 {
 if (strcmp(current->content, str) == 0)
@@ -26,15 +23,14 @@ return (NULL);
 }
 current = current->next;
 }
+new_vertex = (vertex_t *)malloc(sizeof(vertex_t));
 if (new_vertex == NULL)
 {
-printf("Error creating new vertex.\n");
 return (NULL);
 }
 new_vertex->content = strdup(str);
 if (new_vertex->content == NULL)
 {
-printf("Adding vertex content failed.\n");
 free(new_vertex);
 return (NULL);
 }
