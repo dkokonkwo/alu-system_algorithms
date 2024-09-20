@@ -13,7 +13,7 @@ graph_t *graph = (graph_t *) malloc(sizeof(graph_t));
 if (graph == NULL)
 {
 printf("Memory allocation failed\n");
-return NULL;
+return (NULL);
 }
 
 graph->nb_vertices = 0;
