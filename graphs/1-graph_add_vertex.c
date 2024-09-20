@@ -46,7 +46,7 @@ else
 {
 for (current = graph->vertices; current->next; current = current->next)
 {
-;}
+; }
 current->next = new_vertex;
 }
 return (new_vertex);
