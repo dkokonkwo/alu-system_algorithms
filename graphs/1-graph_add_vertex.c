@@ -46,6 +46,20 @@ new_vertex->nb_edges = 0;
 new_vertex->edges = NULL;
 new_vertex->next = NULL;
 
+if (graph->vertices == NULL)
+{
+graph->vertices = new_vertex;
+}
+else
+{
+current = graph->vertices;
+while (current->next != null)
+{
+current = current->next;
+}
+current->next = new_vertex;
+}
+
 graph->nb_vertices++;
 
 return (new_vertex);
