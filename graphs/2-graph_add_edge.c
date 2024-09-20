@@ -18,32 +18,27 @@ vertex_t *current, *src_vertex = NULL, *dest_vertex = NULL;
 edge_t *src_edge, *dest_edge, *current_edge;
 if (!graph || !src || !dest || (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 {
-return (0);
-}
+return (0); }
 for (current = graph->vertices; current; current = current->next)
 {
 if (strcmp(current->content, src) == 0)
 {
-src_vertex = current;
-}
+src_vertex = current; }
 if (strcmp(current->content, dest) == 0)
 {
 dest_vertex = current;
 }
 if (src_vertex && dest_vertex)
 {
-break;
-}
+break; }
 }
 if (!src_vertex || !dest_vertex)
 {
-return (0);
-}
+return (0); }
 src_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!src_edge)
 {
-return (0);
-}
+return (0); }
 src_edge->dest = dest_vertex;
 src_edge->next = NULL;
 if (!src_vertex->edges)
@@ -64,14 +59,12 @@ dest_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!dest_edge)
 {
 free(src_edge);
-return (0);
-}
+return (0); }
 dest_edge->dest = src_vertex;
 dest_edge->next = NULL;
 if (!dest_vertex->edges)
 {
-dest_vertex->edges = dest_edge;
-}
+dest_vertex->edges = dest_edge; }
 else
 {
 for (current_edge = dest_vertex->edges; current_edge->next; current_edge = current_edge->next)
@@ -81,5 +74,4 @@ current_edge->next = dest_edge;
 }
 dest_vertex->nb_edges++;
 }
-return (1);
-}
+return (1); }
