@@ -15,7 +15,7 @@
 int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_t type)
 {
 vertex_t *current, *src_vertex, *dest_vertex;
-edge_t *src_edge, *dest_edge, *current_edge;
+edge_t *src_edge, *dest_edge;
 if (!graph || !src || !dest || (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 {
 return (0);
@@ -53,7 +53,7 @@ if (type == BIDIRECTIONAL)
 dest_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!dest_edge)
 {
-scr_vertex->edges = src_edge->next;
+src_vertex->edges = src_edge->next;
 free(src_edge);
 return (0);
 }
