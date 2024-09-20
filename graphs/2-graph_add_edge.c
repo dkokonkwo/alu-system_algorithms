@@ -12,7 +12,8 @@
  * Return: 1 on success, or 0 on failure
  */
 
-int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_t type)
+int graph_add_edge
+(graph_t *graph, const char *src, const char *dest, edge_type_t type)
 {
 vertex_t *current, *src_vertex = NULL, *dest_vertex = NULL;
 edge_t *src_edge, *dest_edge, *current_edge;
