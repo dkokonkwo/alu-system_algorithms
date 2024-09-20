@@ -5,21 +5,34 @@
 
 /**
  * graph_delete - completely deletes a graph
+ * @graph: pointer to the graph to delete
  */
 void graph_delete(graph_t *graph)
 {
-vertex_t *vertex;
-edge_t *edge;
+vertex_t *vertex, *temp_vertex;
+edge_t *edge, *temp_edge;
+
 if (!graph)
 {
 return;
 }
-for (vertex = graph->vertices; vertex; vertex = vertex->next)
+vertex = graph->vertices;
+while (vertex)
 {
-for (edge = vertex->edges; edge; edge = edge->next)
+edge = vertex->edges;
+while (edge)
 {
+temp_edge = edge->next;
 free(edge);
+edge = temp_edge;
 }
+
+free(vertex->content);
+
+temp_vertex = vertex->next;
 free(vertex);
+vertex = temp_vertex;
 }
+
+free(graph);
 }
