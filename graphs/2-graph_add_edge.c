@@ -35,7 +35,7 @@ if (src_vertex && dest_vertex)
 break;
 }
 }
-if (!(src_vertex && dest_vertex))
+if (!src_vertex || !dest_vertex)
 {
 return (0);
 }
@@ -46,24 +46,20 @@ return (0);
 }
 src_vertex->nb_edges++;
 src_edge->dest = dest_vertex;
-src_edge->next = NULL;
-for (current_edge = src_vertex->edges; current_edge; current_edge = current_edge->next)
-{
-; }
-current_edge = src_edge;
+src_edge->next = src_vertex->edges;
+src_vertex->edges = src_edge;
 if (type == BIDIRECTIONAL)
 {
 dest_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!dest_edge)
 {
+scr_vertex->edges = src_edge->next;
+free(src_edge);
 return (0);
 }
 dest_edge->dest = src_vertex;
-dest_edge->next = NULL;
-for (current_edge = dest_vertex->edges; current_edge; current_edge = current_edge->next)
-{
-; }
-current_edge = dest_edge;
+dest_edge->next = dest_vertex->edges;
+dest_vertex->edges = dest_edge;
 dest_vertex->nb_edges++;
 }
 return (1);
