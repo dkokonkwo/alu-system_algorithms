@@ -53,7 +53,7 @@ graph->vertices = new_vertex;
 else
 {
 current = graph->vertices;
-while (current->next != null)
+while (current->next != NULL)
 {
 current = current->next;
 }
