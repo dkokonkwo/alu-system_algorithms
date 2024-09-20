@@ -59,7 +59,7 @@ return (0);
 }
 dest_edge->dest = src_vertex;
 dest_edge->next = NULL;
-for (current_edge = des_vertex->edges; current_edge; current_edge = current_edge->next)
+for (current_edge = dest_vertex->edges; current_edge; current_edge = current_edge->next)
 {
 ; }
 current_edge = dest_edge;
