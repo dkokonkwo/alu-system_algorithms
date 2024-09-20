@@ -44,7 +44,6 @@ if (!src_edge)
 {
 return (0);
 }
-src_vertex->nb_edges++;
 src_edge->dest = dest_vertex;
 src_edge->next = NULL;
 if (!src_vertex->edges)
@@ -58,14 +57,15 @@ for (current_edge = src_vertex->edges; current_edge->next; current_edge = curren
 ; }
 current_edge->next = src_edge;
 }
+src_vertex->nb_edges++;
 if (type == BIDIRECTIONAL)
 {
 dest_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!dest_edge)
 {
+free(src_edge);
 return (0);
 }
-dest_vertex->nb_edges++;
 dest_edge->dest = src_vertex;
 dest_edge->next = NULL;
 if (!dest_vertex->edges)
@@ -79,6 +79,7 @@ for (current_edge = dest_vertex->edges; current_edge->next; current_edge = curre
 ; }
 current_edge->next = dest_edge;
 }
+dest_vertex->nb_edges++;
 }
 return (1);
 }
