@@ -13,7 +13,8 @@
 size_t depth_first_search(vertex_t *vertex, void (*action)(const vertex_t *v, size_t depth), int *visited, size_t depth)
 {
 edge_t *edge;
-size_t max_depth = depth, child_depth;
+size_t max_depth = depth;
+size_t child_depth;
 if (visited[vertex->index])
 {
 return (max_depth);
