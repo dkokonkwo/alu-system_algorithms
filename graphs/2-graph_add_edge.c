@@ -17,7 +17,7 @@ const char *dest, edge_type_t type)
 {
 vertex_t *current, *src_vertex = NULL, *dest_vertex = NULL;
 edge_t *src_edge, *dest_edge, *current_edge;
-if (!graph || !src || !dest || 
+if (!graph || !src || !dest ||
 (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 { return (0); }
 for (current = graph->vertices; current; current = current->next)
@@ -34,8 +34,7 @@ if (!src_vertex || !dest_vertex)
 src_edge = (edge_t *) malloc(sizeof(edge_t));
 if (!src_edge)
 { return (0); }
-src_edge->dest = dest_vertex;
-src_edge->next = NULL;
+src_edge->dest = dest_vertex, src_edge->next = NULL;
 if (!src_vertex->edges)
 { src_vertex->edges = src_edge; }
 else
@@ -59,6 +58,5 @@ for (current_edge = dest_vertex->edges;
 current_edge->next; current_edge = current_edge->next)
 { ; }
 current_edge->next = dest_edge; }
-dest_vertex->nb_edges++;
-}
+dest_vertex->nb_edges++; }
 return (1); }
