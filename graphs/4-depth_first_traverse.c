@@ -1,7 +1,7 @@
 #include "graphs.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 
 /**
  * dfs - depth first search
