@@ -21,12 +21,11 @@ if (!graph || !src || !dest ||
 (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 { return (0); }
 for (current = graph->vertices; current; current = current->next)
-{ if (strcmp(current->content, src) == 0)
+{
+if (strcmp(current->content, src) == 0)
 { src_vertex = current; }
 if (strcmp(current->content, dest) == 0)
 { dest_vertex = current; }
-if (src_vertex && dest_vertex)
-{ break; }
 }
 if (!src_vertex || !dest_vertex)
 { return (0); }
@@ -51,7 +50,8 @@ dest_edge->dest = src_vertex, dest_edge->next = NULL;
 if (!dest_vertex->edges)
 { dest_vertex->edges = dest_edge; }
 else
-{ for (c_edge = dest_vertex->edges; c_edge->next; c_edge = c_edge->next)
+{
+for (c_edge = dest_vertex->edges; c_edge->next; c_edge = c_edge->next)
 { ; }
 c_edge->next = dest_edge; }
 dest_vertex->nb_edges++; }
