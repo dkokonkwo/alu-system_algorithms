@@ -46,7 +46,7 @@ q->first = new_node;
 }
 else
 {
-for (current = q->first, current->next; current = current->next)
+for (current = q->first; current->next; current = current->next)
 { ; }
 current->next = new_node;
 }
