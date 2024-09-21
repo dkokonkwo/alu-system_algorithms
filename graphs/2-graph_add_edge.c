@@ -53,8 +53,7 @@ if (!dest_vertex->edges)
 { dest_vertex->edges = dest_edge; }
 else
 {
-for (c_edge = dest_vertex->edges;
-c_edge->next; c_edge = c_edge->next)
+for (c_edge = dest_vertex->edges; c_edge->next; c_edge = c_edge->next)
 { ; }
 c_edge->next = dest_edge; }
 dest_vertex->nb_edges++; }
