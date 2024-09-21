@@ -4,27 +4,22 @@
 #include <unistd.h>
 
 /**
- * dfs - depth first search
+ * depth_first_search - depth first search algo
  * @vertex: current vertex
  * @action: pointer to function to perform on vertex
  * @visited: array keeping track of visited vertices
  * @depth: current depth relative to last vertex
  */
-size_t depth_first_search(vertex_t *vertex, void (*action)(const vertex_t *v, size_t depth),
-int *visited, size_t depth)
+size_t depth_first_search(vertex_t *vertex, void (*action)(const vertex_t *v, size_t depth), int *visited, size_t depth)
 {
 edge_t *edge;
 size_t max_depth = depth, child_depth;
-if (visited[vertex->index] == 1)
+if (visited[vertex->index])
 {
 return (max_depth);
 }
 visited[vertex->index] = 1;
 action(vertex, depth);
-if (vertex->nb_edges == 0)
-{
-return (max_depth);
-}
 for (edge = vertex->edges; edge; edge = edge->next)
 {
 if (!visited[edge->dest->index])
