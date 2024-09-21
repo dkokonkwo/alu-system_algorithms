@@ -20,8 +20,7 @@ edge_t *src_edge, *dest_edge, *current_edge;
 if (!graph || !src || !dest ||
 (type != UNIDIRECTIONAL && type != BIDIRECTIONAL))
 { return (0); }
-for (current = graph->vertices; current; current = current->next)
-{
+for (current = graph->vertices; current; current = current->next) {
 if (strcmp(current->content, src) == 0)
 { src_vertex = current; }
 if (strcmp(current->content, dest) == 0)
