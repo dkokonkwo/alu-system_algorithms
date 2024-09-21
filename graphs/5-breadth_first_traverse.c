@@ -102,9 +102,8 @@ enqueue(q, graph->vertices);
 visited[graph->vertices->index] = 1;
 action(graph->vertices, max_depth);
 
-while (!q->nb_nodes)
+while (q->nb_nodes)
 {
-max_depth++;
 vertex = dequeue(q);
 for (edge = vertex->edges; edge; edge = edge->next)
 {
@@ -115,6 +114,7 @@ visited[edge->dest->index] = 1;
 action(edge->dest, max_depth);
 }
 }
+max_depth++;
 }
 free(visited);
 free(q);
