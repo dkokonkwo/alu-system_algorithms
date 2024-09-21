@@ -84,11 +84,10 @@ size_t breadth_first_traverse(const graph_t *graph,
 void (*action)(const vertex_t *v, size_t depth))
 {
 int *visited;
-size_t max_depth = 0, current_depth = 0;
+size_t vertices_in_level, next_level_count, max_depth = 0, current_depth = 0;
 queue_t *q;
 edge_t *edge;
 vertex_t *vertex;
-size_t vertices_in_level, next_level_count;
 if (!graph || !graph->nb_vertices || !action)
 {
 return (0); }
@@ -99,8 +98,7 @@ return (0); }
 q = create_queue();
 enqueue(q, graph->vertices);
 visited[graph->vertices->index] = 1;
-vertices_in_level = 1;
-next_level_count = 0;
+vertices_in_level = 1, next_level_count = 0;
 while (q->nb_nodes)
 {
 vertex = dequeue(q);
@@ -124,5 +122,4 @@ next_level_count = 0;
 }
 max_depth = current_depth - 1;
 free(visited), free(q);
-return (max_depth);
-}
+return (max_depth); }
