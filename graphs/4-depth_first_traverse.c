@@ -10,7 +10,7 @@
  * @visited: array keeping track of visited vertices
  * @depth: current depth relative to last vertex
  */
-size_t dfs(vertex_t *vertex, void (*action)(const vertex_t *v, size_t depth),
+size_t depth_first_search(vertex_t *vertex, void (*action)(const vertex_t *v, size_t depth),
 int *visited, size_t depth)
 {
 edge_t *edge;
@@ -29,7 +29,7 @@ for (edge = vertex->edges; edge; edge = edge->next)
 {
 if (!visited[edge->dest->index])
 {
-child_depth = dfs(edge->dest, action, visited, depth + 1);
+child_depth = depth_first_search(edge->dest, action, visited, depth + 1);
 if (child_depth > max_depth)
 {
 max_depth = child_depth;
@@ -60,7 +60,7 @@ if (!visited)
 {
 return (0);
 }
-max_depth = dfs(graph->vertices, action, visited, 0);
+max_depth = depth_first_search(graph->vertices, action, visited, 0);
 
 free(visited);
 
