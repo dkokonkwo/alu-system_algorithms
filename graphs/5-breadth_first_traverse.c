@@ -84,40 +84,45 @@ size_t breadth_first_traverse(const graph_t *graph,
 void (*action)(const vertex_t *v, size_t depth))
 {
 int *visited;
-size_t max_depth = 0;
+size_t max_depth = 0, current_depth = 0;
 queue_t *q;
 edge_t *edge;
 vertex_t *vertex;
+size_t vertices_in_level, next_level_count;
 if (!graph || !graph->nb_vertices || !action)
 {
-return (0);
-}
+return (0); }
 visited = calloc(graph->nb_vertices, sizeof(int));
 if (!visited)
 {
-return (0);
-}
+return (0); }
 q = create_queue();
 enqueue(q, graph->vertices);
 visited[graph->vertices->index] = 1;
-action(graph->vertices, max_depth);
-
+vertices_in_level = 1;
+next_level_count = 0;
 while (q->nb_nodes)
 {
 vertex = dequeue(q);
+action(vertex, current_depth);
 for (edge = vertex->edges; edge; edge = edge->next)
 {
 if (!visited[edge->dest->index])
 {
 enqueue(q, edge->dest);
 visited[edge->dest->index] = 1;
-action(edge->dest, max_depth);
+next_level_count++;
 }
 }
-max_depth++;
+vertices_in_level--;
+if (vertices_in_level == 0)
+{
+current_depth++;
+vertices_in_level = next_level_count;
+next_level_count = 0;
 }
-free(visited);
-free(q);
-
+}
+max_depth = current_depth - 1;
+free(visited), free(q);
 return (max_depth);
 }
