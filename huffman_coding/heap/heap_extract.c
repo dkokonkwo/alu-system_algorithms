@@ -69,7 +69,7 @@ return current;
 void *heap_extract(heap_t *heap)
 {
 void *data;
-binart_tree_node_t *last_node;
+binary_tree_node_t *last_node;
 if (!heap || !heap->root)
 {
 return NULL;
