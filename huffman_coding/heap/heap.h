@@ -55,5 +55,8 @@ heap_t *heap_create(int (*data_cmp)(void *, void *));
 binary_tree_node_t *binary_tree_node(binary_tree_node_t *parent, void *data);
 void sift_up(heap_t *heap, binary_tree_node_t *node);
 binary_tree_node_t *heap_insert(heap_t *heap, void *data);
-
+void *heap_extract(heap_t *heap);
+binary_tree_node_t *get_last_node(heap_t *heap);
+void sift_down(heap_t *heap, binary_tree_node_t *node);
+void swap(binary_tree_node_t *a, binary_tree_node_t *b);
 #endif
