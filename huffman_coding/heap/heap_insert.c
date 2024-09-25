@@ -37,11 +37,11 @@ return (new_node);
  * Return - smallest node
  */
 binary_tree_node_t *compare(heap_t *heap,
-binary_tree_node_t current_node, binary_tree_node_t *new_node)
+binary_tree_node_t *current_node, binary_tree_node_t *new_node)
 {
 binary_tree_node_t *left;
 binary_tree_node_t *right;
-if (heap->data_cmp(current_node, new_node) >= 0)
+if (heap->data_cmp(current_node->data, new_node->data) >= 0)
 {
 return (current_node);
 }
@@ -49,7 +49,7 @@ return (current_node);
 left = compare(heap, current_node->left, new_node);
 right = compare(heap, current_node->right, new_node);
 
-return (heap->data_cmp(left, right) < 0 ? left : right);
+return (heap->data_cmp(left->data, right->data) < 0 ? left : right);
 }
 
 /**
