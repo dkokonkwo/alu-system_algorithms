@@ -74,7 +74,7 @@ heap->root = new_node;
 }
 else
 {
-current_node = compare(heap, current_node, new_node);
+current_node = compare(heap, heap->root, new_node);
 current_node->parent->left = new_node;
 new_node->parent = current_node->parent;
 new_node->left = current_node->left;
