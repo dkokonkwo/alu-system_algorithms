@@ -158,5 +158,5 @@ enqueue(queue, current->right); }
 free_queue(queue); }
 sift_up(heap, new_node);
 heap->size++;
-return(new_node);
+return (new_node);
 }
