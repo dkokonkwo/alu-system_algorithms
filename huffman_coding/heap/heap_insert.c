@@ -101,7 +101,7 @@ node = node->parent;
 binary_tree_node_t *heap_insert(heap_t *heap, void *data)
 {
 binary_tree_node_t *new_node;
-binary_tree_node_t *current_node;
+binary_tree_node_t *current, *parent;
 if (!heap || !data)
 {
 return (NULL);
