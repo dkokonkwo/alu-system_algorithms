@@ -43,11 +43,13 @@ typedef struct queue_s
 {
 size_t nb_nodes;
 node_t *first;
+node_t *last;
 } queue_t;
 
 queue_t *create_queue(void);
 void enqueue(queue_t *q, binary_tree_node_t *node);
 binary_tree_node_t *dequeue(queue_t *q);
+void free_queue(queue_t *q);
 
 heap_t *heap_create(int (*data_cmp)(void *, void *));
 binary_tree_node_t *binary_tree_node(binary_tree_node_t *parent, void *data);

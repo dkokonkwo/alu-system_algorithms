@@ -16,6 +16,7 @@ return (NULL);
 
 queue->nb_nodes = 0;
 queue->first = NULL;
+queue->last = NULL;
 
 return (queue);
 }
@@ -23,7 +24,7 @@ return (queue);
 /**
  * enqueue - add node to queue
  * @q: queue to add node to
- * @v: node
+ * @node: node
  */
 void enqueue(queue_t *q, binary_tree_node_t *node)
 {
@@ -43,12 +44,12 @@ new_node->next = NULL;
 if (q->nb_nodes == 0)
 {
 q->first = new_node;
+q->last = new_node;
 }
 else
 {
-for (current = q->first; current->next; current = current->next)
-{ ; }
-current->next = new_node;
+q->last->next = new_node;
+q->last = new_node;
 }
 q->nb_nodes++;
 }
@@ -69,9 +70,30 @@ return (NULL);
 temp_node = q->first;
 node = temp_node->b_node;
 q->first = temp_node->next;
+if (!q->first)
+{
+q->last = NULL;
+}
 free(temp_node);
 q->nb_nodes--;
 return (node);
+}
+
+/**
+ * free_queue - free all nodes in the queue
+ * @q: queue to free
+ */
+void free_queue(queue_t *q)
+{
+ node_t *current, *next;
+current = q->first;
+while (current)
+{
+next = current->next;
+free(current);
+current = next;
+}
+free(q);
 }
 
 /**
@@ -100,15 +122,17 @@ node = node->parent;
  */
 binary_tree_node_t *heap_insert(heap_t *heap, void *data)
 {
-binary_tree_node_t *new_node;
-binary_tree_node_t *current;
+binary_tree_node_t *new_node, *current;
 queue_t *queue;
 if (!heap || !data)
 {
 return (NULL);
 }
-
 new_node = binary_tree_node(NULL, data);
+if (!new_node)
+{
+return (NULL);
+}
 if (!heap->root)
 {
 heap->root = new_node;
@@ -129,7 +153,6 @@ else
 {
 enqueue(queue, current->left);
 }
-
 if (!current->right)
 {
 current->right = new_node;
@@ -138,13 +161,10 @@ break;
 }
 else
 {
-enqueue(queue, current->right);
+enqueue(queue, current->right); }
 }
-}
-
-free(queue);
-}
-
+free_queue(queue); }
+sift_up(heap, new_node);
 heap->size++;
 return(new_node);
 }
