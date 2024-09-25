@@ -33,9 +33,19 @@ int (*data_cmp)(void *, void *);
 binary_tree_node_t *root;
 } heap_t;
 
+typedef struct queue_s
+{
+size_t nb_nodes;
+binary_tree_node_t *first;
+} queue_t;
+
+queue_t *create_queue(void);
+void enqueue(queue_t *q, binary_tree_node_t *node);
+binary_tree_node_t *dequeue(queue_t *q);
+
 heap_t *heap_create(int (*data_cmp)(void *, void *));
 binary_tree_node_t *binary_tree_node(binary_tree_node_t *parent, void *data);
-binary_tree_node_t *compare(heap_t *heap, binary_tree_node_t *current_node, binary_tree_node_t *new_node);
+void sift_up(heap_t *heap, binary_tree_node_t *node);
 binary_tree_node_t *heap_insert(heap_t *heap, void *data);
 
 #endif
