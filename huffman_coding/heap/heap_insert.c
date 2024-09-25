@@ -40,7 +40,7 @@ binary_tree_node_t *compare(heap_t *heap,
 binary_tree_node_t current_node, binary_tree_node_t *new_node)
 {
 binary_tree_node_t *left;
-binray_tree_node_t *right;
+binary_tree_node_t *right;
 if (heap->cmp(current_node, new_node) >= 0)
 {
 return (current_node);
