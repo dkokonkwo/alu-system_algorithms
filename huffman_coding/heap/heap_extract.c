@@ -24,7 +24,8 @@ binary_tree_node_t *smallest;
 while (node->left)
 {
 smallest = node->left;
-if (node->right && heap->data_cmp(node->right->data, node->left->data) < 0)
+if (node->right && heap->data_cmp(node->right->data,
+node->left->data) < 0)
 smallest = node->right;
 
 if (heap->data_cmp(smallest->data, node->data) < 0)
@@ -49,16 +50,21 @@ binary_tree_node_t *get_last_node(heap_t *heap)
 binary_tree_node_t *current;
 queue_t *queue = create_queue();
 enqueue(queue, heap->root);
-while ((current = dequeue(queue)))
+while (queue->nb_nodes)
 {
+current = dequeue(queue);
 if (current->left)
+{
 enqueue(queue, current->left);
+}
 if (current->right)
+{
 enqueue(queue, current->right);
+}
 }
 
 free_queue(queue);
-return current;
+return (current);
 }
 
 /**
@@ -72,7 +78,7 @@ void *data;
 binary_tree_node_t *last_node;
 if (!heap || !heap->root)
 {
-return NULL;
+return (NULL);
 }
 data = heap->root->data;
 
@@ -81,7 +87,7 @@ if (heap->size == 1)
 free(heap->root);
 heap->root = NULL;
 heap->size--;
-return data;
+return (data);
 }
 
 last_node = get_last_node(heap);
@@ -97,5 +103,5 @@ last_node->parent->right = NULL;
 free(last_node);
 heap->size--;
 sift_down(heap, heap->root);
-return data;
+return (data);
 }
