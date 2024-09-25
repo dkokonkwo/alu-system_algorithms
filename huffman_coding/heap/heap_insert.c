@@ -85,7 +85,7 @@ return (node);
  */
 void free_queue(queue_t *q)
 {
- node_t *current, *next;
+node_t *current, *next;
 current = q->first;
 while (current)
 {
@@ -98,8 +98,8 @@ free(q);
 
 /**
  * sift_up - moves smallest nodes up
- * @heap - min binary heap
- * @node - added node
+ * @heap: min binary heap
+ * @node: added node
  */
 void sift_up(heap_t *heap, binary_tree_node_t *node)
 {
@@ -126,17 +126,14 @@ binary_tree_node_t *new_node, *current;
 queue_t *queue;
 if (!heap || !data)
 {
-return (NULL);
-}
+return (NULL); }
 new_node = binary_tree_node(NULL, data);
 if (!new_node)
 {
-return (NULL);
-}
+return (NULL); }
 if (!heap->root)
 {
-heap->root = new_node;
-}
+heap->root = new_node; }
 else
 {
 queue = create_queue();
@@ -145,20 +142,15 @@ while ((current = dequeue(queue)))
 {
 if (!current->left)
 {
-current->left = new_node;
-new_node->parent = current;
-break;
-}
+current->left = new_node, new_node->parent = current;
+break; }
 else
 {
-enqueue(queue, current->left);
-}
+enqueue(queue, current->left); }
 if (!current->right)
 {
-current->right = new_node;
-new_node->parent = current;
-break;
-}
+current->right = new_node, new_node->parent = current;
+break; }
 else
 {
 enqueue(queue, current->right); }
