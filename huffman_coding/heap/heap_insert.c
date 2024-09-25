@@ -28,7 +28,7 @@ return (queue);
  */
 void enqueue(queue_t *q, binary_tree_node_t *node)
 {
-node_t *current, *new_node;
+node_t *new_node;
 if (!q || !node)
 {
 return;
