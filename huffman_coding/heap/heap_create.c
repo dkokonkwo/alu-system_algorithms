@@ -5,7 +5,7 @@
 /**
  * heap_create - creates a heap structure
  * @data_cmp: pointer to comparison function
- * @Return: pointer to created heap or null pn failure
+ * Return: pointer to created heap or null pn failure
  */
 heap_t *heap_create(int (*data_cmp)(void *, void *))
 {
