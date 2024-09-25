@@ -33,6 +33,12 @@ int (*data_cmp)(void *, void *);
 binary_tree_node_t *root;
 } heap_t;
 
+typedef struct node_s
+{
+binary_tree_node_t *b_node;
+struct node_s *next;
+} node_t;
+
 typedef struct queue_s
 {
 size_t nb_nodes;

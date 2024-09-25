@@ -27,12 +27,19 @@ return (queue);
  */
 void enqueue(queue_t *q, binary_tree_node_t *node)
 {
-node_t *current;
-if (!node)
+node_t *current *new_node;
+if (!q || !node)
 {
 return;
 }
 
+new_node = (node_t *) malloc(sizeof(node_t));
+if (!new_node)
+{
+return;
+}
+new_node->b_node = node;
+new_node->next = NULL;
 if (q->nb_nodes == 0)
 {
 q->first = new_node;
@@ -41,7 +48,7 @@ else
 {
 for (current = q->first; current->next; current = current->next)
 { ; }
-current->next = node;
+current->next = new_node;
 }
 q->nb_nodes++;
 }
@@ -53,13 +60,16 @@ q->nb_nodes++;
  */
 binary_tree_node_t *dequeue(queue_t *q)
 {
+node_t *temp_node;
 binary_tree_node_t *node;
 if (!q || q->nb_nodes == 0)
 {
 return (NULL);
 }
-node = q->first;
-q->first = node->next;
+temp_node = q->first;
+node = temp_node->b_node;
+q->first = temp_node->next;
+free(temp_node);
 q->nb_nodes--;
 return (node);
 }
