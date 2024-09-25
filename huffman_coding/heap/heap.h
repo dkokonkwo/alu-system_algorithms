@@ -42,7 +42,7 @@ struct node_s *next;
 typedef struct queue_s
 {
 size_t nb_nodes;
-binary_tree_node_t *first;
+node_t *first;
 } queue_t;
 
 queue_t *create_queue(void);
