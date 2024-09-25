@@ -101,7 +101,8 @@ node = node->parent;
 binary_tree_node_t *heap_insert(heap_t *heap, void *data)
 {
 binary_tree_node_t *new_node;
-binary_tree_node_t *current, *parent;
+binary_tree_node_t *current;
+queue_t *queue;
 if (!heap || !data)
 {
 return (NULL);
@@ -114,7 +115,6 @@ heap->root = new_node;
 }
 else
 {
-parent = NULL;
 queue = create_queue();
 enqueue(queue, heap->root);
 while ((current = dequeue(queue)))
@@ -142,7 +142,7 @@ enqueue(queue, current->right);
 }
 }
 
-queue_free(queue);
+free(queue);
 }
 
 heap->size++;
