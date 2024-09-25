@@ -19,7 +19,7 @@ return (NULL);
 new_node = (binary_tree_node_t *) malloc(sizeof(binary_tree_node_t));
 if (!new_node)
 {
-return(NULL);
+return (NULL);
 }
 
 new_node->data = data;
