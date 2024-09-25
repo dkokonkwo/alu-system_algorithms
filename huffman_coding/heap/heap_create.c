@@ -1,5 +1,6 @@
 #include "heap.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * heap_create - creates a heap structure
@@ -14,9 +15,9 @@ if (!new_heap)
 return (NULL);
 }
 
-heap->size = 0;
-heap->data_cmp = data_cmp;
-heap->root = NULL;
+new_heap->size = 0;
+new_heap->data_cmp = data_cmp;
+new_heap->root = NULL;
 
 return (new_heap);
 }
