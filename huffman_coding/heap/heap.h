@@ -59,4 +59,6 @@ void *heap_extract(heap_t *heap);
 binary_tree_node_t *get_last_node(heap_t *heap);
 void sift_down(heap_t *heap, binary_tree_node_t *node);
 void swap(binary_tree_node_t *a, binary_tree_node_t *b);
+void heap_delete(heap_t *heap, void (*free_data)(void *));
+void recursive_free(binary_tree_node_t *node, void (*free_data)(void *));
 #endif
