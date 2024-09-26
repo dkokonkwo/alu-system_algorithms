@@ -19,5 +19,5 @@ typedef struct symbol_s
 symbol_t *symbol_create(char data, size_t freq);
 heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size);
 int freq_cmp(void *a, void *b);
-binary_tree_node_t* created_nested(char data, size_t freq);
+binary_tree_node_t* create_nested(char data, size_t freq);
 #endif
