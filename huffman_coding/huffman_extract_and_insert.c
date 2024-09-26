@@ -29,8 +29,8 @@ return (0);
 }
 
 new_node = heap_insert(priority_queue, new_symbol);
-new_node->left = left;
-new_node->right = right;
+new_node->left = binary_tree_node(new_node, left);
+new_node->right = binary_tree_node(new_node, right);
 }
 return (1);
 }
