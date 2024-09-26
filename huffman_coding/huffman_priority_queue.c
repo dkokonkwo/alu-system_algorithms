@@ -51,7 +51,7 @@ return (nested);
  */
 heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size)
 {
-binary_tree_node_t *new_node, *current_node;
+binary_tree_node_t *new_node;
 size_t i;
 heap_t *priority_queue;
 if (!data || !freq || !size)
@@ -71,7 +71,7 @@ if (!new_node)
 free(priority_queue);
 return (NULL);
 }
-current_node = heap_insert(priority_queue, new_node);
+new_node = heap_insert(priority_queue, new_node);
 }
 
 return (priority_queue);
