@@ -9,9 +9,12 @@
  * @b: second
  * Return: difference
  */
-int freq_cmp(int a, int b)
+int freq_cmp(void *a, void *b)
 {
-return (a - b);
+symbol symbol_t *a, *b;
+a = ((binary_tree_node_t *)a)->data;
+b = ((binary_tree_node_t *)b)->data;
+return (a->freq - b->freq);
 }
 
 /**
