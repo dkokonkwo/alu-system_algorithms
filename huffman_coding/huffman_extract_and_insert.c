@@ -48,7 +48,7 @@ new_node->left = left_node;
 new_node->right = right_node;
 if (!heap_insert(priority_queue, new_node))
 {
-free(node);
+free(new_node);
 return (0); }
 free(left_symbol), free(right_symbol);
 return (1);
