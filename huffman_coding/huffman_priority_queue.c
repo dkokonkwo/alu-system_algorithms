@@ -11,7 +11,7 @@
  */
 int freq_cmp(void *a, void *b)
 {
-symbol symbol_t *a, *b;
+symbol_t *a, *b;
 a = ((binary_tree_node_t *)a)->data;
 b = ((binary_tree_node_t *)b)->data;
 return (a->freq - b->freq);
