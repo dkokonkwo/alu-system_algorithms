@@ -10,8 +10,8 @@
  */
 int huffman_extract_and_insert(heap_t *priority_queue)
 {
-binary_tree_node_t *left, *right, *new_node;
-symbol_t *new_symbol;
+binary_tree_node_t *new_node;
+symbol_t *new_symbol, *left, *right;
 if (!priority_queue || !priority_queue->size)
 {
 return (0);
@@ -19,8 +19,8 @@ return (0);
 
 while (priority_queue->size != 1)
 {
-left = (binary_tree_node_t *) heap_extract(priority_queue);
-right = (binary_tree_node_t *) heap_extract(priority_queue);
+left = (symbol_t *) heap_extract(priority_queue);
+right = (symbol_t *) heap_extract(priority_queue);
 
 new_symbol = symbol_create('$', left->freq + right->freq);
 if (!new_symbol)
@@ -32,4 +32,5 @@ new_node = heap_insert(priority_queue, new_symbol);
 new_node->left = left;
 new_node->right = right;
 }
+return (1);
 }
