@@ -24,7 +24,7 @@ if (!left_symbol || !right_symbol)
 return (0);
 }
 
-left_node = binart_tree_node(NULL, left_symbol);
+left_node = binary_tree_node(NULL, left_symbol);
 right_node = binary_tree_node(NULL, right_symbol);
 if (!left_node || !right_node)
 {
