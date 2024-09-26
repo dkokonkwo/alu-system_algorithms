@@ -2,6 +2,7 @@
 #define HUFFMAN_H
 
 #include <unistd.h>
+#include "heap.h"
 
 /**
  * struct symbol_s - Stores a char and its associated frequency
