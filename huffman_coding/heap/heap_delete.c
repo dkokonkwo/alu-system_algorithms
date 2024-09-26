@@ -22,7 +22,7 @@ void heap_delete(heap_t *heap, void (*free_data)(void *))
 {
 if (!heap || !free_data)
 {
-return (NULL);
+return;
 }
 
 recursive_free(heap->root, free_data);
