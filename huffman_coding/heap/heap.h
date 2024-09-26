@@ -29,7 +29,7 @@ struct binary_tree_node_s *parent;
 typedef struct heap_s
 {
 size_t size;
-int (*data_cmp)(void *, void *);
+int (*data_cmp)(int a, int b);
 binary_tree_node_t *root;
 } heap_t;
 
