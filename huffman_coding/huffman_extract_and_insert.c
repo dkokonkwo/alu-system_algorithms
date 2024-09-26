@@ -22,7 +22,7 @@ while (priority_queue->size != 1)
 left = (symbol_t *) heap_extract(priority_queue);
 right = (symbol_t *) heap_extract(priority_queue);
 
-new_symbol = symbol_create('$', left->freq + right->freq);
+new_symbol = symbol_create(-1, left->freq + right->freq);
 if (!new_symbol)
 {
 return (0);
