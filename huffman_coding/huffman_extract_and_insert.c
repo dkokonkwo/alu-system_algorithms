@@ -12,38 +12,44 @@ int huffman_extract_and_insert(heap_t *priority_queue)
 {
 binary_tree_node_t *new_node, *left_node, *right_node;
 symbol_t *new_symbol, *left_symbol, *right_symbol;
-if (!priority_queue || !priority_queue->size < 2)
+if (!priority_queue || priority_queue->size < 2)
 {
-return (0);
-}
-
+return (0); }
 left_symbol = (symbol_t *) heap_extract(priority_queue);
 right_symbol = (symbol_t *) heap_extract(priority_queue);
 if (!left_symbol || !right_symbol)
 {
-return (0);
-}
-
+return (0); }
 left_node = binary_tree_node(NULL, left_symbol);
 right_node = binary_tree_node(NULL, right_symbol);
 if (!left_node || !right_node)
 {
-return (0);
-}
+free(left_symbol);
+free(right_symbol);
+return (0); }
 new_symbol = symbol_create(-1, left_symbol->freq + right_symbol->freq);
-
+ if (!new_symbol)
+{
+free(left_node);
+free(right_node);
+free(left_symbol);
+free(right_symbol);
+return (0); }
 new_node = binary_tree_node(NULL, new_symbol);
 if (!new_node)
 {
-return (0);
-}
+free(left_node);
+free(new_symbol);
+free(right_node);
+free(left_symbol);
+free(right_symbol);
+return (0); }
 new_node->left = left_node;
 new_node->right = right_node;
-
 if (!heap_insert(priority_queue, new_node))
 {
-return (0);
-}
-
+free(node);
+return (0); }
+free(left_symbol), free(right_symbol);
 return (1);
 }
