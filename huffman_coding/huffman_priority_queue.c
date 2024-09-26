@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "heap.h"
 #include "huffman.h"
 
@@ -12,8 +13,8 @@
 int freq_cmp(void *a, void *b)
 {
 symbol_t *sym_a, *sym_b;
-a = ((binary_tree_node_t *)sym_a)->data;
-b = ((binary_tree_node_t *)sym_b)->data;
+sym_a = ((binary_tree_node_t *)a)->data;
+sym_b = ((binary_tree_node_t *)b)->data;
 return (sym_a->freq - sym_b->freq);
 }
 
@@ -51,7 +52,7 @@ return (nested);
 heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size)
 {
 binary_tree_node_t *new_node, *current_node;
-int i;
+size_t i;
 heap_t *priority_queue;
 if (!data || !freq || !size)
 {
