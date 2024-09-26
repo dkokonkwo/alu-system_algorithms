@@ -24,7 +24,7 @@ return (sym_a->freq - sym_b->freq);
  * @freq: symbol frequency
  * Return: created node
  */
-binary_tree_node_t* create_nested(char data, size_t freq)
+binary_tree_node_t *create_nested(char data, size_t freq)
 {
 binary_tree_node_t *nested;
 symbol_t *symbol = symbol_create(data, freq);
