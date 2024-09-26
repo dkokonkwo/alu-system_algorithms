@@ -9,7 +9,7 @@
  * @b: second
  * Return: difference
  */
-int freq_cmp(int a, b)
+int freq_cmp(int a, int b)
 {
 return (a - b);
 }
@@ -20,7 +20,7 @@ return (a - b);
  * @freq: symbol frequency
  * Return: created node
  */
-binary_tree_node_t* created_nested(char *data, size_t *freq)
+binary_tree_node_t* created_nested(char data, size_t freq)
 {
 symbol_t *symbol = symbol_create(data, freq);
 if (!symbol)
