@@ -22,13 +22,19 @@ return (a - b);
  */
 binary_tree_node_t* created_nested(char data, size_t freq)
 {
+binary_tree_node_t *nested;
 symbol_t *symbol = symbol_create(data, freq);
 if (!symbol)
 {
 return (NULL);
 }
 
-binary_tree_node_t *nested = binary_tree_node(NULL, symbol);
+nested = binary_tree_node(NULL, symbol);
+if (!nested)
+{
+return (NULL);
+}
+
 return (nested);
 }
 
@@ -41,6 +47,8 @@ return (nested);
  */
 heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size)
 {
+binary_tree_node_t *new_node, *current_node;
+int i;
 heap_t *priority_queue;
 if (!data || !freq || !size)
 {
