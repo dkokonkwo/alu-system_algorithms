@@ -4,6 +4,29 @@
 #include "huffman.h"
 
 /**
+ * free_node - free nodes content
+ */
+void free_node(void *data)
+{
+binary_tree_node_t *node;
+symbol_t *sym;
+node = (binary_tree_node_t *) data;
+if (!node)
+{
+return;
+}
+sym = (symbol_t *) node->data;
+if (!sym)
+{
+free(node);
+return;
+}
+free(sym);
+free(node);
+}
+
+
+/**
  * huffman_tree - builds a huffman tree
  * @data: array of characters
  * @freq: array containing associated frequencies
@@ -30,10 +53,12 @@ while (priority_queue->size > 1)
 success = huffman_extract_and_insert(priority_queue);
 if (!success)
 {
+heap_delete(priority_queue, free_node);
 return (NULL);
 }
 }
-
-return ((binary_tree_node_t *) heap_extract(priority_queue));
+root = ((binary_tree_node_t *) heap_extract(priority_queue));
+heap_delete(priority_queue, NULL);
+return (root);
 }
 
