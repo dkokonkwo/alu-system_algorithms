@@ -58,8 +58,8 @@ heap_delete(priority_queue, free_node);
 return (NULL);
 }
 }
-h_root = ((binary_tree_node_t *) (priority_queue->root->data);
+h_root = (binary_tree_node_t *) (priority_queue->root->data);
 heap_delete(priority_queue, NULL);
-return (root);
+return (h_root);
 }
 
