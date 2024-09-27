@@ -13,7 +13,7 @@ void huffman_traverse(binary_tree_node_t *node, char *code, int level)
 {
 symbol_t *sym;
 int i;
-char *l_code, *r_code; 
+char *l_code, *r_code;
 if (!node)
 {
 return;
@@ -40,7 +40,7 @@ r_code[i] = code[i];
 }
 l_code[level] = '0';
 r_code[level] = '1';
-huffman_traverse(node->left, l_code, level + 1);  
+huffman_traverse(node->left, l_code, level + 1); 
 huffman_traverse(node->right, r_code, level + 1);
 free(l_code), free(r_code);
 }
