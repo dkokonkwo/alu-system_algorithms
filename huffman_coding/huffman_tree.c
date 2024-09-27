@@ -5,6 +5,7 @@
 
 /**
  * free_node - free nodes content
+ * @data: data stored in node
  */
 void free_node(void *data)
 {
