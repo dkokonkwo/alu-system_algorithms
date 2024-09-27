@@ -25,7 +25,7 @@ code[level] = '\0';
 printf("%c: %s\n", sym->data, code);
 return;
 }
-for (i = 0, i < level; i++;)
+for (i = 0; i < level; i++)
 {
 l_code[i] = code[i];
 r_code[i] = code[i];
@@ -50,7 +50,7 @@ int level;
 binary_tree_node_t *h_root;
 if (!data || !freq || size == 0)
 {
-return (NULL);
+return (0);
 }
 level = 0;
 h_root = huffman_tree(data, freq, size);
