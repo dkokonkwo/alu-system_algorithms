@@ -68,5 +68,6 @@ if (!h_root)
 return (0);
 }
 huffman_traverse(h_root, code, level);
+free(h_root);
 return (1);
 }
