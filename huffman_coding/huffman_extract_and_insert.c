@@ -50,9 +50,9 @@ if (!heap_insert(priority_queue, new_symbol))
 {
 free(new_node);
 free(new_symbol);
+printf("worked\n");
 return (0);
 }
 free(left_symbol), free(right_symbol);
-printf("worked\n");
 return (1);
 }
