@@ -37,6 +37,7 @@ int nested_print(char *buffer, void *data)
  int main(void)
 {
     heap_t *priority_queue;
+    symbol_t *sym;
     binary_tree_node_t *root_node;
     char data[] = {
         'a', 'b', 'c', 'd', 'e', 'f'
@@ -60,7 +61,9 @@ int nested_print(char *buffer, void *data)
         return (0);
     }
 
-    printf("success!!");
+    printf("success!!\n");
+    sym = (symbol_t *) root_node->data;
+    printf("data: %c\n freq: %lu\n", (sym->data == -1 ? '$' : sym->data), sym->freq);
 
     return 1;
 }

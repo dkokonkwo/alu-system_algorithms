@@ -49,7 +49,8 @@ if (!priority_queue)
 return (NULL);
 }
 
-while (priority_queue->size > 1)
+while (priority_queue->root &&
+(priority_queue->root->left || priority_queue->root->right))
 {
 success = huffman_extract_and_insert(priority_queue);
 if (!success)
