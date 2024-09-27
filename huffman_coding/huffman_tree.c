@@ -19,7 +19,7 @@ if (!data || !freq || !size)
 return (NULL);
 }
 
-priority_queue = huffman_priority_queue(data, size, freq);
+priority_queue = huffman_priority_queue(data, freq, size);
 if (!priority_queue)
 {
 return (NULL);
