@@ -12,10 +12,17 @@
  */
 int freq_cmp(void *a, void *b)
 {
+size_t freq;
 symbol_t *sym_a, *sym_b;
 sym_a = ((binary_tree_node_t *)a)->data;
 sym_b = ((binary_tree_node_t *)b)->data;
-return (sym_a->freq - sym_b->freq);
+freq = sym_a->freq - sym_b->freq;
+if (freq != 0)
+{
+return (freq);
+}
+
+return (sym_a->data - sym_b->data);
 }
 
 /**
