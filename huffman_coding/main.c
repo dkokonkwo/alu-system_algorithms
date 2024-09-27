@@ -37,6 +37,7 @@ int nested_print(char *buffer, void *data)
  int main(void)
 {
     heap_t *priority_queue;
+    binary_tree_node_t *root_node;
     char data[] = {
         'a', 'b', 'c', 'd', 'e', 'f'
     };
@@ -52,11 +53,15 @@ int nested_print(char *buffer, void *data)
         return (EXIT_FAILURE);
     }
 
-    printf("size : %lu\n", priority_queue->size);
+    root_node = huffman_tree(data, freq, size);
+    if (!root_node)
+    {
+        printf("Wahala dey\n");
+        return (0);
+    }
 
-    huffman_extract_and_insert(priority_queue);
+    printf("success!!");
 
-    printf("size of pqueue: %lu\n", priority_queue->size);
-    return (1);
+    return 1;
 }
 

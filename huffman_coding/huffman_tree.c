@@ -14,7 +14,7 @@ binary_tree_node_t *huffman_tree(char *data, size_t *freq, size_t size)
 {
 heap_t *priority_queue;
 int success;
-if (!data || !freq || !size)
+if (!data || !freq || size == 0)
 {
 return (NULL);
 }
@@ -28,13 +28,12 @@ return (NULL);
 while (priority_queue->size > 1)
 {
 success = huffman_extract_and_insert(priority_queue);
-}
-
 if (!success)
 {
 return (NULL);
 }
+}
 
-return (priority_queue->root);
+return ((binary_tree_node_t *) heap_extract(priority_queue));
 }
 
