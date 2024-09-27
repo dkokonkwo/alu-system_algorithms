@@ -51,6 +51,11 @@ void enqueue(queue_t *q, binary_tree_node_t *node);
 binary_tree_node_t *dequeue(queue_t *q);
 void free_queue(queue_t *q);
 
+static binary_tree_node_t *get_bottom_node(heap_t *heap, void *data);
+static char *int2bin(int a);
+static void swap(void **a, void **b);
+static void adjust_heap(heap_t *heap, binary_tree_node_t *node);
+
 heap_t *heap_create(int (*data_cmp)(void *, void *));
 binary_tree_node_t *binary_tree_node(binary_tree_node_t *parent, void *data);
 void sift_up(heap_t *heap, binary_tree_node_t *node);
@@ -58,7 +63,7 @@ binary_tree_node_t *heap_insert(heap_t *heap, void *data);
 void *heap_extract(heap_t *heap);
 binary_tree_node_t *get_last_node(heap_t *heap);
 void sift_down(heap_t *heap, binary_tree_node_t *node);
-void swap(binary_tree_node_t *a, binary_tree_node_t *b);
+// void swap(binary_tree_node_t *a, binary_tree_node_t *b);
 void heap_delete(heap_t *heap, void (*free_data)(void *));
 void recursive_free(binary_tree_node_t *node, void (*free_data)(void *));
 #endif
