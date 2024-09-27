@@ -21,10 +21,11 @@ return;
 sym = (symbol_t *) node->data;
 if (sym->data != -1)
 {
-printf("%c: %s\n", sym->data, current_code);
+code[level] = '\0';
+printf("%c: %s\n", sym->data, code);
 return;
 }
-for (i = 0, i < level; i++)
+for (i = 0, i < level; i++;)
 {
 l_code[i] = code[i];
 r_code[i] = code[i];
