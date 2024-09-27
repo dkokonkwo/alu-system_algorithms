@@ -104,7 +104,7 @@ free(q);
 void sift_up(heap_t *heap, binary_tree_node_t *node)
 {
 void *temp;
-while (node->parent && heap->data_cmp(node->data, node->parent->data) < 0)
+while (node->parent && heap->data_cmp(node->data, node->parent->data) <= 0)
 {
 temp = node->data;
 node->data = node->parent->data;
