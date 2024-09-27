@@ -46,6 +46,23 @@ free(l_code), free(r_code);
 }
 
 /**
+ * free_huff_tree - free huffman tree
+ * @node: root node
+ */
+void free_huff_tree(binary_tree_node_t *node)
+{
+if (!node)
+{
+return;
+}
+free_huff_tree(node->left);
+free_huff_tree(node->right);
+
+free(node->data);
+free(node);
+}
+
+/**
  * huffman_codes - build huffman tree and prints codes for each symbol
  * @data: array of characters
  * @freq: array of associated frequencies
@@ -68,6 +85,6 @@ if (!h_root)
 return (0);
 }
 huffman_traverse(h_root, code, level);
-free(h_root);
+free_huff_tree(h_root);
 return (1);
 }
