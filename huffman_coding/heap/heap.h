@@ -2,6 +2,9 @@
 #define HEAP_H
 
 #include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 /**
  * struct binary_tree_node_s - Binary tree node data structure
