@@ -24,10 +24,10 @@ binary_tree_node_t *smallest;
 while (node->left)
 {
 smallest = node->left;
-if (node->right && heap->data_cmp(node->right->data, node->left->data) < 0)
+if (node->right && heap->data_cmp(node->right->data, node->left->data) <= 0)
 smallest = node->right;
 
-if (heap->data_cmp(smallest->data, node->data) < 0)
+if (heap->data_cmp(smallest->data, node->data) <= 0)
 {
 swap(node, smallest);
 node = smallest;
