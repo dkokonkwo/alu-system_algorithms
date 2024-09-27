@@ -10,46 +10,48 @@
  */
 int huffman_extract_and_insert(heap_t *priority_queue)
 {
-binary_tree_node_t *new_node, *left_node, *right_node;
+binary_tree_node_t *new_node, *left_node *right_node;
 symbol_t *new_symbol, *left_symbol, *right_symbol;
-if (!priority_queue || priority_queue->size < 2)
+if (!priority_queue || priority_queue < 2)
 {
-return (0); }
+return (0);
+}
 left_symbol = (symbol_t *) heap_extract(priority_queue);
 right_symbol = (symbol_t *) heap_extract(priority_queue);
-if (!left_symbol || !right_symbol)
+if (!right_symbol || !left_symbol)
 {
-return (0); }
-left_node = binary_tree_node(NULL, left_symbol);
-right_node = binary_tree_node(NULL, right_symbol);
-if (!left_node || !right_node)
+return (0);
+}
+new_symbol = symbol_create(-1, (left_symbol->freq + right_symbol->freq));
+if (!new_symbol)
 {
-free(left_symbol);
 free(right_symbol);
-return (0); }
-new_symbol = symbol_create(-1, left_symbol->freq + right_symbol->freq);
- if (!new_symbol)
-{
-free(left_node);
-free(right_node);
 free(left_symbol);
-free(right_symbol);
-return (0); }
+return (0);
+}
 new_node = binary_tree_node(NULL, new_symbol);
-if (!new_node)
+if(!new_node)
 {
-free(left_node);
-free(new_symbol);
-free(right_node);
-free(left_symbol);
 free(right_symbol);
-return (0); }
-new_node->left = left_node;
-new_node->right = right_node;
-if (!heap_insert(priority_queue, new_node))
+free(left_symbol);
+free(new_symbol);
+return (0);
+}
+new_node->left = binary_tree_node(new_node, left_symbol);
+new_node->right = binary_tree_node(new_node, right_symbol);
+if (!new_node->left || !new_node->right)
+{
+free(right_symbol);
+free(left_symbol);
+free(new_symbol);
+free(new_node);
+}
+if (!heap_insert(priority_queue, new_symbol))
 {
 free(new_node);
-return (0); }
+free(new_symbol);
+return (0);
+}
 free(left_symbol), free(right_symbol);
 return (1);
 }
