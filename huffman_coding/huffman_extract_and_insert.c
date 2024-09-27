@@ -53,5 +53,6 @@ free(new_symbol);
 return (0);
 }
 free(left_symbol), free(right_symbol);
+printf("worked\n");
 return (1);
 }
