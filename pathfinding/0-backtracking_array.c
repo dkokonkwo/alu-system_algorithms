@@ -28,8 +28,11 @@ point_t const *target, queue_t *queue, bool **visited)
     {
         node = queue_push_back(queue, (void *)start);
     }
+    if (!node)
+    {
+        return (NULL);
     visited[start->x][start->y] = true;
-    printf("checking coordinated [%d, %d]\n", start->x, start->y);
+    printf("Checking coordinates [%d, %d]\n", start->x, start->y);
     if (start->x == target->x && start->y == target->y)
     {
         return (queue);
