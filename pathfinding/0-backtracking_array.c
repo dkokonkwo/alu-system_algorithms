@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "queues.h"
 #include "pathfinding.h"
 
 
