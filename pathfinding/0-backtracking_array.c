@@ -5,7 +5,7 @@
 #include "pathfinding.h"
 
 
-queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool visited[][])
+queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool **visited)
 {
     point_t *new_start;
     queue_node_t *node;
@@ -78,12 +78,30 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
  */
 queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start, point_t const *target)
 {
-    bool visited[rows][cols];
+    bool **visited;
     queue_t *queue;
     int i, j;
     if (!map || rows == 0 || cols == 0 || !start || !target)
     {
         return (NULL);
+    }
+    visited = malloc(rows * sizeof(bool *));
+    if (!visited)
+    {
+        return (NULL);
+    }
+    for (i = 0; i < rows; i++)
+    {
+        visited[i] = malloc(cols * sizeof(bool));
+        if (!visited[i])
+        {
+            for (j = 0; j < i; j++)
+            {
+                free(visited[j]);
+            }
+            free(visited);
+            return (NULL);
+        }
     }
     queue = queue_create();
     if (!queue)
@@ -98,6 +116,11 @@ queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start
         }
     }
     queue = DFS(map, rows, cols, start, target, queue, visited);
+    for (i = 0; i < rows; i++)
+    {
+        free(visited[i]);
+    }
+    free(visited);
     return (queue);
 
 
