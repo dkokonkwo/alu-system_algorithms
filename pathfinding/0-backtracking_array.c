@@ -22,15 +22,17 @@ point_t const *target, queue_t *queue, bool **visited)
     queue_node_t *node;
     if (!queue->front)
     {
-        node = queue_push_front(queue, (void *)start);
+        if (!queue_push_front(queue, (void *)start))
+        {
+            return (NULL);
+        }
     }
     else
     {
-        node = queue_push_back(queue, (void *)start);
-    }
-    if (!node)
-    {
-        return (NULL);
+        if (!queue_push_back(queue, (void *)start))
+        {
+            return (NULL);
+        }
     }
     visited[start->x][start->y] = true;
     printf("Checking coordinates [%d, %d]\n", start->x, start->y);
