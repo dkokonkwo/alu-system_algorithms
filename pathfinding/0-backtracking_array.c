@@ -9,7 +9,8 @@
  * @map: 2 dimensional array
  * @rows: num of rows
  * @cols: num of cols
- * @start: starting point
+ * @x: point x
+ * @y: point y
  * @target: ending point
  * @queue: queue containining path
  * @visited: tracks visited points
@@ -19,7 +20,7 @@ queue_t *DFS(char **map, int rows, int cols, int x, int y,
 point_t const *target, queue_t *queue, bool **visited)
 {
     point_t *current;
-    cuurent = malloc(sizeof(point_t));
+    current = malloc(sizeof(point_t));
     if (!current)
         return (NULL);
     current->x = x;
