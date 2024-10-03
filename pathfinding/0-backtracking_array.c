@@ -5,17 +5,13 @@
 #include "pathfinding.h"
 
 
-queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, char **visited)
+queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool *visited)
 {
     point_t *new_start;
     queue_node_t *node;
-    if (!queue->front)
+    if (!queue_push_back(queue, (void *)start))
     {
-        node = queue_push_front(queue, (void *)start);
-    }
-    else
-    {
-        node = queue_push_back(queue, (void *)start);
+        return NULL;
     }
     visited[start->x][start->y] = true;
     printf("checking coordinated [%d, %d]\n", start->x, start->y);
