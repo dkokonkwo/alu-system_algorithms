@@ -4,7 +4,17 @@
 #include "queues.h"
 #include "pathfinding.h"
 
-
+/**
+ * DFS - depth first search
+ * @map: 2 dimensional array
+ * @rows: num of rows
+ * @cols: num of cols
+ * @start: starting point
+ * @target: ending point
+ * @queue: queue containining path
+ * @visited: tracks visited points
+ * Return: queue
+ */
 queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool **visited)
 {
     point_t *new_start;
@@ -29,6 +39,7 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
         new_start->y = start->y + 1;
         if (DFS(map, rows, cols, new_start, target, queue, visited))
         {
+            free(new_start);
             return (queue);
         }
     }
@@ -39,6 +50,7 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
         new_start->y = start->y;
         if (DFS(map, rows, cols, new_start, target, queue, visited))
         {
+            free(new_start);
             return (queue);
         }
     }
@@ -48,6 +60,7 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
         new_start->y = start->y - 1;
         if (DFS(map, rows, cols, new_start, target, queue, visited))
         {
+            free(new_start);
             return (queue);
         }
     }
@@ -57,6 +70,7 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
         new_start->y = start->y;
         if (DFS(map, rows, cols, new_start, target, queue, visited))
         {
+            free(new_start);
             return (queue);
         }
     }
@@ -105,6 +119,11 @@ queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start
     queue = queue_create();
     if (!queue)
     {
+        for (i = 0; i < rows; i++)
+        {
+            free(visited[i]);
+        }
+        free(visited);
         return NULL;
     }
     for (i = 0; i < rows; i++)
