@@ -2,6 +2,7 @@
 #define PATHFINDING_H
 
 #include "queues.h"
+#include <stdbool.h>
 
 /**
  * struct point_s - Structure storing coordinates
