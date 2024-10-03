@@ -17,5 +17,5 @@ typedef struct point_s
 } point_t;
 
 queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start, point_t const *target);
-queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool **visited);
+queue_t *DFS(char **map, int rows, int cols, int x, int y, point_t const *target, queue_t *queue, bool **visited);
 #endif
