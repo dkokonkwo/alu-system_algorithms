@@ -18,9 +18,14 @@
 queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool **visited)
 {
     point_t *new_start;
-    if (!queue_push_back(queue, (void *)start))
+    queue_node_t *node;
+    if (!queue->front)
     {
-        return NULL;
+        node = queue_push_front(queue, start);
+    }
+    else
+    {
+        node = queue_push_back(queue, start);
     }
     visited[start->x][start->y] = true;
     printf("checking coordinated [%d, %d]\n", start->x, start->y);
@@ -31,7 +36,7 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
     new_start = malloc(sizeof(point_t));
     if (!new_start)
     {
-        return (NULL);
+        return (node->next);
     }
     if (start->y + 1 < cols && map[start->x][start->y + 1] == '0' && !visited[start->x][start->y + 1])
     {
