@@ -68,6 +68,7 @@ if (y - 1 >= 0 && map[y - 1][x] == '0' &&
 {
 if (DFS(map, rows, cols, x, y - 1, target, queue, visited))
 {
+queue_push_front(queue, current);
 return (queue);
 }
 }
