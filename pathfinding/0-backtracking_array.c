@@ -31,6 +31,7 @@ point_t const *target, queue_t *queue, bool **visited)
     if (!node)
     {
         return (NULL);
+    }
     visited[start->x][start->y] = true;
     printf("Checking coordinates [%d, %d]\n", start->x, start->y);
     if (start->x == target->x && start->y == target->y)
