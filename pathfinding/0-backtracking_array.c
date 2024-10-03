@@ -82,10 +82,10 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
  */
 queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start, point_t const *target)
 {
-    bool *visited[rows];
+    bool visited[rows][cols];
     queue_t *queue;
     int i, j;
-    if (!map || rows == 0 || cols == 0 || !start || target)
+    if (!map || rows == 0 || cols == 0 || !start || !target)
     {
         return (NULL);
     }
