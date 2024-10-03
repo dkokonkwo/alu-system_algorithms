@@ -29,7 +29,7 @@ point_t const *target, queue_t *queue, bool **visited)
     printf("Checking coordinates [%d, %d]\n", x, y);
     if (x == target->x && y == target->y)
     {
-        queue_push_back(queue, current);
+        queue_push_front(queue, current);
         return (queue);
     }
     /* RIGHT */
@@ -38,6 +38,7 @@ point_t const *target, queue_t *queue, bool **visited)
     {
         if (DFS(map, rows, cols, x + 1, y, target, queue, visited))
         {
+            queue_push_front(queue, current);
             return (queue);
         }
     }
@@ -47,6 +48,7 @@ point_t const *target, queue_t *queue, bool **visited)
     {
         if (DFS(map, rows, cols, x, y + 1, target, queue, visited))
         {
+            queue_push_front(queue, current);
             return (queue);
         }
     }
@@ -56,6 +58,7 @@ point_t const *target, queue_t *queue, bool **visited)
     {
         if (DFS(map, rows, cols, x - 1, y, target, queue, visited))
         {
+            queue_push_front(queue, current);
             return (queue);
         }
     }
