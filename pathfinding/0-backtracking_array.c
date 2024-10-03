@@ -15,17 +15,18 @@
  * @visited: tracks visited points
  * Return: queue
  */
-queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool **visited)
+queue_t *DFS(char **map, int rows, int cols, point_t const *start,
+point_t const *target, queue_t *queue, bool **visited)
 {
     point_t *new_start;
     queue_node_t *node;
     if (!queue->front)
     {
-        node = queue_push_front(queue, start);
+        node = queue_push_front(queue, (void *)start);
     }
     else
     {
-        node = queue_push_back(queue, start);
+        node = queue_push_back(queue, (void *)start);
     }
     visited[start->x][start->y] = true;
     printf("checking coordinated [%d, %d]\n", start->x, start->y);
@@ -36,9 +37,10 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
     new_start = malloc(sizeof(point_t));
     if (!new_start)
     {
-        return (node->next);
+        return (NULL);
     }
-    if (start->y + 1 < cols && map[start->x][start->y + 1] == '0' && !visited[start->x][start->y + 1])
+    if (start->y + 1 < cols && map[start->x][start->y + 1] == '0' &&
+!visited[start->x][start->y + 1])
     {
         new_start->x = start->x;
         new_start->y = start->y + 1;
@@ -49,7 +51,8 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
         }
     }
 
-    if (start->x + 1 < rows && map[start->x + 1][start->y] == '0' && !visited[start->x + 1][start->y])
+    if (start->x + 1 < rows && map[start->x + 1][start->y] == '0' &&
+!visited[start->x + 1][start->y])
     {
         new_start->x = start->x + 1;
         new_start->y = start->y;
@@ -59,7 +62,8 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
             return (queue);
         }
     }
-    if (start->y - 1 >= 0 && map[start->x][start->y - 1] == '0' && !visited[start->x][start->y - 1])
+    if (start->y - 1 >= 0 && map[start->x][start->y - 1] == '0' &&
+!visited[start->x][start->y - 1])
     {
         new_start->x = start->x;
         new_start->y = start->y - 1;
@@ -69,7 +73,8 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
             return (queue);
         }
     }
-    if (start->x - 1 >= 0 && map[start->x - 1][start->y] == '0' && !visited[start->x - 1][start->y])
+    if (start->x - 1 >= 0 && map[start->x - 1][start->y] == '0' &&
+!visited[start->x - 1][start->y])
     {
         new_start->x = start->x - 1;
         new_start->y = start->y;
@@ -94,7 +99,8 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
  * @target: coordinates of target point
  * Return: queue pointing from start to target
  */
-queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start, point_t const *target)
+queue_t *backtracking_array(char **map, int rows, int cols,
+point_t const *start, point_t const *target)
 {
     bool **visited;
     queue_t *queue;
