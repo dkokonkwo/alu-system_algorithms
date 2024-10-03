@@ -19,7 +19,6 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start,
 point_t const *target, queue_t *queue, bool **visited)
 {
     point_t *new_start;
-    queue_node_t *node;
     if (!queue->front)
     {
         if (!queue_push_front(queue, (void *)start))
