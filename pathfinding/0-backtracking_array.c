@@ -5,7 +5,7 @@
 #include "pathfinding.h"
 
 
-queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool visited[rows][cols])
+queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const *target, queue_t *queue, bool visited[][])
 {
     point_t *new_start;
     queue_node_t *node;
