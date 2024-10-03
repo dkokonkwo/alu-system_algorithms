@@ -69,7 +69,6 @@ point_t const *target, queue_t *queue, bool **visited)
         }
     }
     visited[y][x] = false;
-    dequeue(queue);
     free(current);
     return (NULL);
 }
