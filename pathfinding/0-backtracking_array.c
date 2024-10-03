@@ -123,7 +123,7 @@ for (i = 0; i < rows; i++)
 free(visited[i]);
 }
 free(visited);
-return NULL;
+return (NULL);
 }
 for (i = 0; i < rows; i++)
 {
@@ -135,8 +135,11 @@ visited[i][j] = false;
 queue = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
 for (i = 0; i < rows; i++)
 {
-free(visited[i]);
-}
+free(visited[i]);}
 free(visited);
+if (!queue)
+{
+queue_delete(queue);
+return (NULL); }
 return (queue);
 }
