@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "queues.h"
 #include "pathfinding.h"
 
@@ -10,11 +11,11 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
     queue_node_t *node;
     if (!queue->front)
     {
-        node = queue_push_front(queue, start);
+        node = queue_push_front(queue, (void *)start);
     }
     else
     {
-        node = queue_push_back(queue, start);
+        node = queue_push_back(queue, (void *)start);
     }
     visited[start->x][start->y] = true;
     printf("checking coordinated [%d, %d]\n", start->x, start->y);
@@ -22,37 +23,52 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
     {
         return (queue);
     }
-    new_start = (point_t *)malloc(sizeof(point_t));
+    new_start = malloc(sizeof(point_t));
     if (!new_start)
     {
         return (NULL);
     }
-    if (start->y + 1 < cols && map[start->x][start->y + 1] == 0 && visited[start->x][start->y + 1] == false)
+    if (start->y + 1 < cols && map[start->x][start->y + 1] == '0' && !visited[start->x][start->y + 1])
     {
         new_start->x = start->x;
         new_start->y = start->y + 1;
-        DFS(map, rows, cols, new_start, target, queue, visited);
+        if (DFS(map, rows, cols, new_start, target, queue, visited))
+        {
+            return (queue);
+        }
     }
 
-    if (start->x + 1 < rows && map[start->x + 1][start->y] == 0 && visited[start->x + 1][start->y] == false)
+    if (start->x + 1 < rows && map[start->x + 1][start->y] == '0' && !visited[start->x + 1][start->y])
     {
         new_start->x = start->x + 1;
         new_start->y = start->y;
-        DFS(map, rows, cols, new_start, target, queue, visited);
+        if (DFS(map, rows, cols, new_start, target, queue, visited))
+        {
+            return (queue);
+        }
     }
-    if (start->y - 1 >= 0 && map[start->x][start->y - 1] == 0 && visited[start->x][start->y - 1] == false)
+    if (start->y - 1 >= 0 && map[start->x][start->y - 1] == '0' && !visited[start->x][start->y - 1])
     {
         new_start->x = start->x;
         new_start->y = start->y - 1;
-        DFS(map, rows, cols, new_start, target, queue, visited);
+        if (DFS(map, rows, cols, new_start, target, queue, visited))
+        {
+            return (queue);
+        }
     }
-    if (start->x - 1 >= 0 && map[start->x - 1][start->y] == 0 && visited[start->x - 1][start->y] == false)
+    if (start->x - 1 >= 0 && map[start->x - 1][start->y] == '0' && !visited[start->x - 1][start->y])
     {
         new_start->x = start->x - 1;
         new_start->y = start->y;
-        DFS(map, rows, cols, new_start, target, queue, visited);
+        if (DFS(map, rows, cols, new_start, target, queue, visited))
+        {
+            return (queue);
+        }
     }
     visited[start->x][start->y] = false;
+    dequeue(queue);
+    free(new_start);
+    return (NULL);
 }
 
 /**
