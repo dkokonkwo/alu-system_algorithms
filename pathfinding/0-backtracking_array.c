@@ -52,6 +52,7 @@ queue_t *DFS(char **map, int rows, int cols, point_t const *start, point_t const
         new_start->y = start->y;
         DFS(map, rows, cols, new_start, target, queue, visited);
     }
+    visited[start->x][start->y] = false;
 }
 
 /**
