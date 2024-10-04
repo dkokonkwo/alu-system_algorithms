@@ -94,9 +94,7 @@ visited[i] = malloc(cols * sizeof(bool));
 if (!visited[i])
 {
 for (j = 0; j < i; j++)
-{
 free(visited[j]);
-}
 free(visited);
 return (NULL); }
 }
@@ -104,21 +102,17 @@ queue = queue_create();
 if (!queue)
 {
 for (i = 0; i < rows; i++)
-{
 free(visited[i]);
-}
 free(visited);
 return (NULL); }
 for (i = 0; i < rows; i++)
 {
 for (j = 0; j < cols; j++)
-{
-visited[i][j] = false; }
+visited[i][j] = false;
 }
 path = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
 for (i = 0; i < rows; i++)
-{
-free(visited[i]); }
+free(visited[i]);
 free(visited);
 if (path)
 return (queue);
