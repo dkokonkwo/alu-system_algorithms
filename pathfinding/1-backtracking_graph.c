@@ -1,9 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "queues.h"
 #include "pathfinding.h"
-#include "graphs.h"
 
 /**
  * path_search - search for first path between 2 vertices
