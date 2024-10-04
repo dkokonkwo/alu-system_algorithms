@@ -74,7 +74,10 @@ return (queue);
 }
 visited[y][x] = false;
 free(current);
+if (queue->front)
+{
 dequeue(queue);
+}
 return (NULL);
 }
 
