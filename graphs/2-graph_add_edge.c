@@ -26,6 +26,8 @@ if (strcmp(current->content, src) == 0)
 { src_vertex = current; }
 if (strcmp(current->content, dest) == 0)
 { dest_vertex = current; }
+if (src_vertex && dest_vertex)
+{ break; }
 }
 if (!src_vertex || !dest_vertex)
 { return (0); }
