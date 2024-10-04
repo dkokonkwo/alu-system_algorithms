@@ -9,7 +9,7 @@
  * @visited: array to tracks visited vertices
  * @start: current vertex
  * @target: target vertex
- * @Return: 1 if found else 0
+ * Return: 1 if found else 0
  */
 int path_search(queue_t *path, int *visited,
 vertex_t const *start, vertex_t const *target)
