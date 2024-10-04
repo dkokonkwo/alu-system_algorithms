@@ -92,6 +92,7 @@ point_t const *start, point_t const *target)
 {
 bool **visited;
 queue_t *queue;
+point_t *last;
 int i, j;
 if (!map || rows == 0 || cols == 0 || !start || !target)
 {
@@ -133,13 +134,15 @@ visited[i][j] = false;
 }
 }
 queue = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
+last = (point_t *) (queue->back->ptr);
 for (i = 0; i < rows; i++)
 {
 free(visited[i]);}
 free(visited);
-if (!queue)
+if (last->x == target->x && last->y == target->y)
 {
+return (queue); }
+free(last);
 queue_delete(queue);
-return (NULL); }
-return (queue);
+return (NULL);
 }
