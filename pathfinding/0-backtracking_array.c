@@ -134,7 +134,7 @@ visited[i][j] = false;
 }
 }
 queue = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
-last = malloc(sizeof(point_t);
+last = malloc(sizeof(point_t));
 if (!last)
 {
 return (NULL);
