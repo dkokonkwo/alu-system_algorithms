@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
+#include <string.h>
 #include "pathfinding.h"
 
 /**
@@ -20,7 +20,7 @@ return (0);
 
 printf("Checking %s\n", start->content);
 visited[start->index] = 1;
-if (start->content == target->content)
+if (strcmp(start->content, target->content) == 0)
 {
 city = strdp(start->content);
 queue_push_front(path, city);

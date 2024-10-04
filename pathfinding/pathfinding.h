@@ -25,6 +25,6 @@ queue_t *DFS(char **map, int rows, int cols, int x, int y,
 point_t const *target, queue_t *queue, bool **visited);
 queue_t *backtracking_graph(graph_t *graph,
 vertex_t const *start, vertex_t const *target);
-path_search(queue_t *path, int *visited,
+int path_search(queue_t *path, int *visited,
 vertex_t const *start, vertex_t const *target);
 #endif
