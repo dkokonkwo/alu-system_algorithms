@@ -142,7 +142,6 @@ free(visited);
 if (last->x == target->x && last->y == target->y)
 {
 return (queue); }
-free(last);
 queue_delete(queue);
 return (NULL);
 }
