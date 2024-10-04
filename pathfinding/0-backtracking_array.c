@@ -91,7 +91,7 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 point_t const *start, point_t const *target)
 {
 bool **visited;
-queue_t *queue, *final;
+queue_t *queue, *path;
 int i, j;
 if (!map || rows == 0 || cols == 0 || !start || !target)
 {
@@ -132,10 +132,15 @@ for (j = 0; j < cols; j++)
 visited[i][j] = false;
 }
 }
-final = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
+path = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
 for (i = 0; i < rows; i++)
 {
 free(visited[i]);}
 free(visited);
-return (final);
+if (path)
+{
+return (queue);
+}
+queue_delete(queue);
+return (NULL);
 }
