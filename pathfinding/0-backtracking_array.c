@@ -133,7 +133,6 @@ visited[i][j] = false;
 }
 }
 queue = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
-printf("%d \n", ((point_t *) queue->back->ptr)->x);
 for (i = 0; i < rows; i++)
 {
 free(visited[i]);}
