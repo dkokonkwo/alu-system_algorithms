@@ -134,11 +134,6 @@ visited[i][j] = false;
 }
 }
 queue = DFS(map, rows, cols, start->x, start->y, target, queue, visited);
-last = malloc(sizeof(point_t));
-if (!last)
-{
-return (NULL);
-}
 last = (point_t *) (queue->back->ptr);
 for (i = 0; i < rows; i++)
 {
