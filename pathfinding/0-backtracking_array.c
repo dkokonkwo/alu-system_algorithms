@@ -74,10 +74,7 @@ return (queue);
 }
 visited[y][x] = false;
 free(current);
-if (queue->front)
-{
 dequeue(queue);
-}
 return (NULL);
 }
 
@@ -140,13 +137,9 @@ for (i = 0; i < rows; i++)
 {
 free(visited[i]);}
 free(visited);
-if (((point_t *) queue->back->ptr)->x == target->x &&
-((point_t *) queue->back->ptr)->y == target->y)
+if (queue->front)
 {
 return (queue); }
-while (queue->front)
-{
-dequeue(queue); }
-queue_delete(queue);
+free(queue);
 return (NULL);
 }
