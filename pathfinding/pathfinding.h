@@ -4,6 +4,8 @@
 #include "queues.h"
 #include <stdbool.h>
 #include "graphs.h"
+#include <string.h>
+#include <limits.h>
 
 /**
  * struct point_s - Structure storing coordinates
@@ -24,5 +26,5 @@ point_t const *target, queue_t *queue, bool **visited);
 queue_t *backtracking_graph(graph_t *graph,
 vertex_t const *start, vertex_t const *target);
 path_search(queue_t *path, int *visited,
-vertex const *start, vertex const *target);
+vertex_t const *start, vertex_t const *target);
 #endif
