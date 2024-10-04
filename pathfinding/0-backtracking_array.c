@@ -143,5 +143,6 @@ if (last->x == target->x && last->y == target->y)
 {
 return (queue); }
 queue_delete(queue);
+free(queue);
 return (NULL);
 }
