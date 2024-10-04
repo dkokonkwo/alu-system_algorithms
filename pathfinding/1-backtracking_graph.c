@@ -22,7 +22,7 @@ printf("Checking %s\n", start->content);
 visited[start->index] = 1;
 if (strcmp(start->content, target->content) == 0)
 {
-city = strdp(start->content);
+city = strdup(start->content);
 queue_push_front(path, city);
 return (1);
 }
@@ -30,7 +30,7 @@ for (edge = start->edges; edge; edge = edge->next)
 {
 if (path_search(path, visited, edge->dest, target))
 {
-city = strdp(start->content);
+city = strdup(start->content);
 queue_push_front(path, city);
 return (1);
 }
