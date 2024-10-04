@@ -5,13 +5,14 @@
 
 /**
  * path_search - search for first path between 2 vertices
- * @path - queue structure that stores path
- * @visited - array to tracks visited vertices
- * @start - current vertex
- * @target - target vertex
- * @Return - 1 if found else 0
+ * @path: queue structure that stores path
+ * @visited: array to tracks visited vertices
+ * @start: current vertex
+ * @target: target vertex
+ * @Return: 1 if found else 0
  */
-int path_search(queue_t *path, int *visited, vertex_t const *start, vertex_t const *target)
+int path_search(queue_t *path, int *visited,
+vertex_t const *start, vertex_t const *target)
 {
 char *city;
 edge_t *edge;
