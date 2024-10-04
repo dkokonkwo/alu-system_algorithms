@@ -141,6 +141,9 @@ if (((point_t *) queue->back->ptr)->x == target->x &&
 ((point_t *) queue->back->ptr)->y == target->y)
 {
 return (queue); }
+while (queue->front)
+{
+dequeue(queue); }
 queue_delete(queue);
 return (NULL);
 }
