@@ -42,7 +42,7 @@ int path_search(queue_t *path, int *visited,
 vertex_t const *start, vertex_t const *target);
 queue_t *dijkstra_graph(graph_t *graph,
 vertex_t const *start, vertex_t const *target);
-city_t **dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
+int dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
 int *visited, vertex_t const *start, vertex_t const *target);
 void move_smallest_front(queue_t *priority_queue, city_t **cities);
 #endif
