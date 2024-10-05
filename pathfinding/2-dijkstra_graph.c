@@ -36,6 +36,10 @@ if (!cities)
 {
 free(visited);
 return (NULL); }
+for (size_t j = 0; j < graph->nb_vertices; j++)
+{
+cities[j] = NULL;
+}
 start_city = (city_t *)malloc(sizeof(city_t));
 if (!start_city)
 {
@@ -123,7 +127,7 @@ if (!city)
 return (0);
 city->name = strdup(edge->dest->content);
 city->parent = cities[curr->index];
-city->value = cities[curr->index]->value + edge->weight;
+city->value = ULONG_MAX;
 queue_push_back(priority_queue, edge->dest);
 cities[edge->dest->index] = city;
 }
