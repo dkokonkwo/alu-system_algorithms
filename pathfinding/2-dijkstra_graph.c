@@ -129,7 +129,7 @@ if (!cities[edge->dest->index])
 {
 city = (city_t *)malloc(sizeof(city_t));
 if (!city)
-return (NULL);
+return (0);
 city->name = strdup(edge->dest->content);
 city->parent = cities[curr->index];
 city->value = cities[curr->index]->value + edge->weight;
