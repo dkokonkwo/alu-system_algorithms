@@ -19,7 +19,6 @@ vertex_t const *target)
 queue_t *path, *priority_queue;
 city_t **cities;
 city_t *city, *start_city;
-char *name;
 int *visited;
 size_t i;
 visited = malloc(graph->nb_vertices * sizeof(*visited));
@@ -68,8 +67,7 @@ free(cities);
 return (NULL); }
 for (city = cities[target->index]; city != NULL; city = city->parent)
 {
-name = strdup(city->name);
-queue_push_front(path, name); }
+queue_push_front(path, city->name); }
 free(visited);
 for (i = 0; i < graph->nb_vertices; i++)
 {
