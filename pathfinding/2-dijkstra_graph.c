@@ -22,6 +22,8 @@ city_t *city, *start_city;
 int *visited, success;
 char *name;
 size_t i;
+if (!graph || !start || !target)
+return (NULL);
 visited = malloc(graph->nb_vertices * sizeof(*visited));
 if (!visited)
 return (NULL);
@@ -49,7 +51,6 @@ free(visited);
 free(cities);
 return (NULL); }
 queue_push_front(priority_queue, (void *)start);
-printf("Why\n");
 success = dijkstra_graph_backtrack(cities, priority_queue,
 visited, start, target);
 if (!success)
