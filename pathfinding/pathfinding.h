@@ -45,4 +45,5 @@ vertex_t const *start, vertex_t const *target);
 int dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
 int *visited, vertex_t const *start, vertex_t const *target);
 void move_smallest_front(queue_t *priority_queue, city_t **cities);
+void free_cities(graph_t *graph, city_t **cities);
 #endif

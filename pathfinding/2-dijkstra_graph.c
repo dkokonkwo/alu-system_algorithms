@@ -75,6 +75,7 @@ if (!path)
 {
 free(visited);
 free_cities(graph, cities);
+queue_delete(priority_queue);
 }
 return (NULL); }
 for (city = cities[target->index]; city != NULL; city = city->parent)
