@@ -91,7 +91,7 @@ return (path);
  * Return: array of predecessors
  */
 city_t **dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
-int *visited, vertex_t *start, vertex_t *target)
+int *visited, vertex_t const *start, vertex_t const *target)
 {
 edge_t edge;
 vertex_t *current, *neighbor;
