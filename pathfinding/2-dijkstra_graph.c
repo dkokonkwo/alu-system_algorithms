@@ -21,13 +21,13 @@ city_t **cities;
 city_t *city, *start_city;
 int *visited, success;
 char *name;
-size_t i;
+size_t j;
 if (!graph || !start || !target)
 return (NULL);
 visited = malloc(graph->nb_vertices * sizeof(*visited));
 if (!visited)
 return (NULL);
-for (size_t j = 0; j < graph->nb_vertices; j++)
+for (j = 0; j < graph->nb_vertices; j++)
 {
 visited[j] = 0;
 }
@@ -36,7 +36,7 @@ if (!cities)
 {
 free(visited);
 return (NULL); }
-for (size_t j = 0; j < graph->nb_vertices; j++)
+for (j = 0; j < graph->nb_vertices; j++)
 {
 cities[j] = NULL;
 }
