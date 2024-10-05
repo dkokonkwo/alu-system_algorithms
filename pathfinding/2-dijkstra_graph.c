@@ -65,24 +65,20 @@ free(cities[i]);
 }
 }
 free(cities);
-return (NULL);
-}
+return (NULL); }
 for (city = cities[target->index]; city != NULL; city = city->parent)
 {
 name = strdup(city->name);
-queue_push_front(path, name);
-}
+queue_push_front(path, name); }
 free(visited);
 for (i = 0; i < graph->nb_vertices; i++)
 {
 if (cities[i] != NULL)
 {
 free(cities[i]->name);
-free(cities[i]);
-}
+free(cities[i]); }
 }
 free(cities);
-free(name);
 return (path);
 }
 
