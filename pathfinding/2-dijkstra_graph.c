@@ -66,7 +66,6 @@ free(cities[i]);
 free(cities);
 return (NULL);
 }
-printf("Good\n");
 for (city = cities[target->index]; city != NULL; city = city->parent)
 {
 name = strdup(city->name);
