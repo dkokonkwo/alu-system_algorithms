@@ -49,6 +49,7 @@ free(visited);
 free(cities);
 return (NULL); }
 queue_push_front(priority_queue, (void *)start);
+printf("Why\n");
 cities = dijkstra_graph_backtrack(cities, priority_queue,
 visited, start, target);
 path = queue_create();
@@ -81,6 +82,7 @@ free(cities[i]);
 }
 }
 free(cities);
+free(name);
 return (path);
 }
 
