@@ -95,7 +95,7 @@ return (path);
 city_t **dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
 int *visited, vertex_t const *start, vertex_t const *target)
 {
-edge_t edge;
+edge_t *edge;
 vertex_t *curr;
 city_t *city;
 curr = (vertex_t *) dequeue(priority_queue);
@@ -111,7 +111,6 @@ for (edge = curr->edges; edge; edge = edge->next)
 {
 if (!visited[neighbor->index]) 
 {
-new_distance = cities[current->index]->value + edge->weight;
 if (cities[edge->dest->index] && (cities[curr->index]->value + edge->weight) <
 cities[edge->dest->index]->value)
 {
