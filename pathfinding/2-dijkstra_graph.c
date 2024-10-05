@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <unistd.h>
 #include "queues.h"
 #include "pathfinding.h"
 
@@ -19,7 +20,8 @@ queue_t *path, *priority_queue;
 city_t **cities;
 city_t *city, *start_city;
 char *name;
-int *visited, i;
+int *visited;
+size_t i;
 visited = malloc(graph->nb_vertices * sizeof(*visited));
 if (!visited)
 return (NULL);
@@ -94,43 +96,42 @@ city_t **dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
 int *visited, vertex_t const *start, vertex_t const *target)
 {
 edge_t edge;
-vertex_t *current, *neighbor;
+vertex_t *curr;
 city_t *city;
-int new_distance;
-current = (vertex_t *) dequeue(priority_queue)
-while (current)
+curr = (vertex_t *) dequeue(priority_queue);
+for (curr = (vertex_t *) dequeue(priority_queue); curr;
+curr = (vertex_t *) dequeue(priority_queue))
 {
-printf("Checking %s, distance from %s is %d", current->content,
-start->content, cities[current->index]->value);
-visited[current->index] = 1;
-if (strcmp(current->content, target->content) == 0)
+printf("Checking %s, distance from %s is %d\n", curr->content,
+start->content, cities[curr->index]->value);
+visited[curr->index] = 1;
+if (strcmp(curr->content, target->content) == 0)
 break;
-for (edge = current->edges; edge; edge = edge->next)
+for (edge = curr->edges; edge; edge = edge->next)
 {
-neighbor = edge->dest;
 if (!visited[neighbor->index]) 
 {
 new_distance = cities[current->index]->value + edge->weight;
-if (cities[neighbor->index] && new_distance < cities[neighbor->index]->value)
+if (cities[edge->dest->index] && (cities[curr->index]->value + edge->weight) <
+cities[edge->dest->index]->value)
 {
-cities[neighbor->index]->value = new_distance;
-cities[neighbor->index]->parent = cities[current->index];
+cities[edge->dest->index]->value = cities[curr->index]->value + edge->weight;
+cities[edge->dest->index]->parent = cities[curr->index];
 }
-if (!cities[neighbor->index])
+if (!cities[edge->dest->index])
 {
 city = (city_t *)malloc(sizeof(city_t));
 if (!city)
 return (NULL);
-city->name = strdup(neighbor->content);
-city->parent = cities[current->index];
+city->name = strdup(edge->dest->content);
+city->parent = cities[curr->index];
 city->value = new_distance;
-queue_push_back(priority_queue, neighbor);
+queue_push_back(priority_queue, edge->dest);
 cities[neighbor->index] = city;
 }
 }
 }
 move_smallest_front(priority_queue, cities);
-current = (vertex_t *) dequeue(priority_queue);
 }
 return (cities);
 }
@@ -146,7 +147,7 @@ vertex_t *smallest, *vertex;
 queue_node_t *current, *smallest_node, *temp;
 if (!priority_queue->front || !priority_queue->front->next)
 return;
-smallest = (vertex_t *)queue->front->ptr;
+smallest = (vertex_t *) priority_queue->front->ptr;
 smallest_node = priority_queue->front;
 for (current = priority_queue->front; current; current = current->next)
 {
