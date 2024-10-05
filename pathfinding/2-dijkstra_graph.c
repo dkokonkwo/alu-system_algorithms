@@ -127,7 +127,7 @@ city->name = strdup(edge->dest->content);
 city->parent = cities[curr->index];
 city->value = cities[curr->index]->value + edge->weight;
 queue_push_back(priority_queue, edge->dest);
-cities[neighbor->index] = city;
+cities[edge->dest->index] = city;
 }
 }
 }
