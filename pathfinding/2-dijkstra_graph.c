@@ -48,6 +48,7 @@ free(start_city);
 free(visited);
 free(cities);
 return (NULL); }
+queue_push_front(priority_queue, start);
 cities = dijkstra_graph_backtrack(cities, priority_queue,
 visited, start, target);
 path = queue_create();
@@ -109,7 +110,7 @@ if (strcmp(curr->content, target->content) == 0)
 break;
 for (edge = curr->edges; edge; edge = edge->next)
 {
-if (!visited[neighbor->index]) 
+if (!visited[edge->dest->index]) 
 {
 if (cities[edge->dest->index] && (cities[curr->index]->value + edge->weight) <
 cities[edge->dest->index]->value)
@@ -124,7 +125,7 @@ if (!city)
 return (NULL);
 city->name = strdup(edge->dest->content);
 city->parent = cities[curr->index];
-city->value = new_distance;
+city->value = cities[curr->index]->value + edge->weight;
 queue_push_back(priority_queue, edge->dest);
 cities[neighbor->index] = city;
 }
@@ -164,7 +165,7 @@ smallest_node->prev->next = smallest_node->next;
 if (smallest_node->next)
 smallest_node->next->prev = smallest_node->prev;
 temp = priority_queue->front;
-priority_queue->front = smallest node;
+priority_queue->front = smallest_node;
 smallest_node->next = temp;
 smallest_node->prev = NULL;
 if (temp)
