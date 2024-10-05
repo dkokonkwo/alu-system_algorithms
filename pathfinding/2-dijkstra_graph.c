@@ -19,7 +19,8 @@ vertex_t const *target)
 queue_t *path, *priority_queue;
 city_t **cities;
 city_t *city, *start_city;
-int *visited;
+int *visited, success;
+char *name;
 size_t i;
 visited = malloc(graph->nb_vertices * sizeof(*visited));
 if (!visited)
@@ -49,8 +50,17 @@ free(cities);
 return (NULL); }
 queue_push_front(priority_queue, (void *)start);
 printf("Why\n");
-cities = dijkstra_graph_backtrack(cities, priority_queue,
+success = dijkstra_graph_backtrack(cities, priority_queue,
 visited, start, target);
+if (!success)
+{
+queue_delete(priority_queue);
+free(start_city->name);
+free(start_city);
+free(visited);
+free(cities);
+return (NULL);
+}
 path = queue_create();
 if (!path)
 {
@@ -67,7 +77,8 @@ free(cities);
 return (NULL); }
 for (city = cities[target->index]; city != NULL; city = city->parent)
 {
-queue_push_front(path, city->name); }
+name = strdup(city->name);
+queue_push_front(path, name); }
 free(visited);
 for (i = 0; i < graph->nb_vertices; i++)
 {
@@ -77,6 +88,7 @@ free(cities[i]->name);
 free(cities[i]); }
 }
 free(cities);
+queue_delete(priority_queue);
 return (path);
 }
 
@@ -87,9 +99,9 @@ return (path);
  * @visited: array for tracking visited vertices
  * @start: pointer to the starting vertex
  * @target: pointer to the target vertex
- * Return: array of predecessors
+ * Return: 1 on success else 0
  */
-city_t **dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
+int dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
 int *visited, vertex_t const *start, vertex_t const *target)
 {
 edge_t *edge;
@@ -102,7 +114,7 @@ printf("Checking %s, distance from %s is %d\n", curr->content,
 start->content, cities[curr->index]->value);
 visited[curr->index] = 1;
 if (strcmp(curr->content, target->content) == 0)
-break;
+return (1);
 for (edge = curr->edges; edge; edge = edge->next)
 {
 if (!visited[edge->dest->index]) 
@@ -126,9 +138,10 @@ cities[edge->dest->index] = city;
 }
 }
 }
-move_smallest_front(priority_queue, cities);
-}
-return (cities);
+move_smallest_front(priority_queue, cities); }
+if (strcmp(curr->content, target->content) == 0)
+return (1);
+return (0);
 }
 
 /**
