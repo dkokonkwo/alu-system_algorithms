@@ -5,13 +5,6 @@
 #include "pathfinding.h"
 
 
-typedef struct city_s
-{
-    char *name;
-    struct city_s *parent;
-    int value;
-} city_t;
-
 /**
  * dijkstra_graph - searches for shortest path from starting to target point
  * @graph: point to graph to go through
