@@ -99,7 +99,6 @@ int *visited, vertex_t const *start, vertex_t const *target)
 edge_t *edge;
 vertex_t *curr;
 city_t *city;
-curr = (vertex_t *) dequeue(priority_queue);
 for (curr = (vertex_t *) dequeue(priority_queue); curr;
 curr = (vertex_t *) dequeue(priority_queue))
 {
