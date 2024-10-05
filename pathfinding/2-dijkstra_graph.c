@@ -27,6 +27,10 @@ return (NULL);
 visited = malloc(graph->nb_vertices * sizeof(*visited));
 if (!visited)
 return (NULL);
+for (size_t j = 0; j < graph->nb_vertices; j++)
+{
+visited[j] = 0;
+}
 cities = malloc(graph->nb_vertices * sizeof(city_t *));
 if (!cities)
 {
@@ -66,29 +70,15 @@ path = queue_create();
 if (!path)
 {
 free(visited);
-for (i = 0; i < graph->nb_vertices; i++)
-{
-if (cities[i] != NULL)
-{
-free(cities[i]->name);
-free(cities[i]);
+free_cities(graph, cities);
 }
-}
-free(cities);
 return (NULL); }
 for (city = cities[target->index]; city != NULL; city = city->parent)
 {
 name = strdup(city->name);
 queue_push_front(path, name); }
 free(visited);
-for (i = 0; i < graph->nb_vertices; i++)
-{
-if (cities[i] != NULL)
-{
-free(cities[i]->name);
-free(cities[i]); }
-}
-free(cities);
+free_cities(graph, cities);
 queue_delete(priority_queue);
 return (path);
 }
@@ -177,4 +167,22 @@ smallest_node->next = temp;
 smallest_node->prev = NULL;
 if (temp)
 temp->prev = smallest_node;
+}
+
+/**
+ * free_cities - frees predecessor array
+ * @graph: graph
+ * @cities: predecessor array
+ */
+void free_cities(graph_t *graph, city_t **cities)
+{
+for (int i = 0; i < graph->nb_vertices; i++)
+{
+if (cities[i] != NULL)
+{
+free(cities[i]->name);
+free(cities[i]);
+}
+}
+free(cities);
 }
