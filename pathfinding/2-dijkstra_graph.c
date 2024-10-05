@@ -140,8 +140,6 @@ cities[edge->dest->index] = city;
 }
 }
 move_smallest_front(priority_queue, cities); }
-if (strcmp(curr->content, target->content) == 0)
-return (1);
 return (0);
 }
 
