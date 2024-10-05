@@ -127,7 +127,7 @@ if (!city)
 return (0);
 city->name = strdup(edge->dest->content);
 city->parent = cities[curr->index];
-city->value = ULONG_MAX;
+city->value = cities[curr->index]->value + edge->weight;
 queue_push_back(priority_queue, edge->dest);
 cities[edge->dest->index] = city;
 }
@@ -180,7 +180,8 @@ temp->prev = smallest_node;
  */
 void free_cities(graph_t *graph, city_t **cities)
 {
-for (int i = 0; i < graph->nb_vertices; i++)
+size_t i;
+for (i = 0; i < graph->nb_vertices; i++)
 {
 if (cities[i] != NULL)
 {
