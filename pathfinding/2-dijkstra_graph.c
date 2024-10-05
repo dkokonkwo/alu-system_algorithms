@@ -19,7 +19,7 @@ queue_t *path, *priority_queue;
 city_t **cities;
 city_t *city, *start_city;
 char *name;
-int *visited;
+int *visited, i;
 visited = malloc(graph->nb_vertices * sizeof(*visited));
 if (!visited)
 return (NULL);
@@ -52,7 +52,7 @@ path = queue_create();
 if (!path)
 {
 free(visited);
-for (int i = 0; i < graph->nb_vertices; i++)
+for (i = 0; i < graph->nb_vertices; i++)
 {
 if (cities[i] != NULL)
 {
@@ -69,7 +69,7 @@ name = strdup(city->name);
 queue_push_front(path, name);
 }
 free(visited);
-for (int i = 0; i < graph->nb_vertices; i++)
+for (i = 0; i < graph->nb_vertices; i++)
 {
 if (cities[i] != NULL)
 {
@@ -121,7 +121,7 @@ if (!cities[neighbor->index])
 city = (city_t *)malloc(sizeof(city_t));
 if (!city)
 return (NULL);
-city->name = strdup(neighbor->content); // Copy the name
+city->name = strdup(neighbor->content);
 city->parent = cities[current->index];
 city->value = new_distance;
 queue_push_back(priority_queue, neighbor);
