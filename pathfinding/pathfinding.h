@@ -6,6 +6,7 @@
 #include "graphs.h"
 #include <string.h>
 #include <limits.h>
+#include <math.h>
 
 /**
  * struct point_s - Structure storing coordinates
@@ -42,8 +43,13 @@ int path_search(queue_t *path, int *visited,
 vertex_t const *start, vertex_t const *target);
 queue_t *dijkstra_graph(graph_t *graph,
 vertex_t const *start, vertex_t const *target);
-int dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
-int *visited, vertex_t const *start, vertex_t const *target);
-void move_smallest_front(queue_t *priority_queue, city_t **cities);
-void free_cities(graph_t *graph, city_t **cities);
+vertex_t *get_min_distance(graph_t *graph, size_t *distance,
+size_t *visited, size_t *index);
+void insert_into_queue(graph_t *graph, queue_t *path, vertex_t **path_via,
+					   vertex_t const *start, vertex_t const *target);
+void recursive_dijkstra(graph_t *graph, size_t *distance, size_t *visited,
+						vertex_t **path_via, vertex_t const *start,
+						vertex_t const *target, size_t idx);
+int init_dijkstra(graph_t *graph, size_t **distance, size_t **visited,
+				  vertex_t ***path_via);
 #endif
