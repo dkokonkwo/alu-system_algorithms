@@ -1,193 +1,206 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include "queues.h"
 #include "pathfinding.h"
 
+/**
+ * get_min_distance - Finds the vertex with the
+ * lowest distance from the source.
+ * @graph: Pointer to the graph.
+ * @distance: Array of distances from the start vertex.
+ * @visited: Array indicating if a vertex has been visited.
+ * @index: Pointer to store the index of the vertex with the minimum distance.
+ * author: Frank Onyema Orji
+ * Return: Pointer to the vertex with
+ * the minimum distance, or NULL if none found.
+ */
+vertex_t *get_min_distance(graph_t *graph, size_t *distance,
+size_t *visited, size_t *index)
+{
+	size_t min = ULONG_MAX;
+	size_t i;
+	vertex_t *vertex = graph->vertices;
+
+	if (vertex == NULL)
+		return (NULL);
+
+	*index = ULONG_MAX;
+
+	for (i = 0; i < graph->nb_vertices; i++)
+	{
+		if (visited[i] == 0 && min > distance[i])
+		{
+			min = distance[i];
+			*index = i;
+		}
+	}
+
+	if (*index == ULONG_MAX)
+		return (NULL);
+
+	while (vertex)
+	{
+		if (vertex->index == *index)
+			return (vertex);
+		vertex = vertex->next;
+	}
+	return (NULL);
+}
 
 /**
- * dijkstra_graph - searches for shortest path from starting to target point
- * @graph: point to graph to go through
- * @start: pointer to the starting vertex
- * @target: pointer to the target vertex
- * Return: queue of path
+ * insert_into_queue - Inserts vertices into the queue to form the path.
+ * @graph: Pointer to the graph with vertices.
+ * @path: Pointer to the path queue.
+ * @path_via: Array of vertices representing the path.
+ * @start: Pointer to the start vertex.
+ * @target: Pointer to the target vertex.
+ */
+void insert_into_queue(graph_t *graph, queue_t *path, vertex_t **path_via,
+					   vertex_t const *start, vertex_t const *target)
+{
+	size_t i = target->index;
+
+	if (!path_via[i])
+		return;
+
+	if (!queue_push_front(path, strdup(target->content)))
+		queue_delete(path);
+
+	while (path_via[i] && i < graph->nb_vertices)
+	{
+		if (!queue_push_front(path, strdup(path_via[i]->content)))
+			queue_delete(path);
+		i = path_via[i]->index;
+		if (i == start->index)
+			return;
+	}
+}
+
+/**
+ * recursive_dijkstra - Recursive utility to find
+ * the shortest path using Dijkstra's algorithm.
+ * @graph: Pointer to the graph.
+ * @distance: Array of distances from the start vertex.
+ * @visited: Array indicating which vertices have been visited.
+ * @path_via: Array of vertices representing the path.
+ * @start: Pointer to the start vertex.
+ * @target: Pointer to the target vertex.
+ * @idx: Current index.
+ */
+void recursive_dijkstra(graph_t *graph, size_t *distance, size_t *visited,
+						vertex_t **path_via, vertex_t const *start,
+						vertex_t const *target, size_t idx)
+{
+	vertex_t *current;
+	edge_t *edge;
+	size_t i = 0, temp;
+
+	current = get_min_distance(graph, distance, visited, &idx);
+	if (!current)
+		return;
+
+	printf("Checking %s, distance from %s is %ld\n",
+		   current->content, start->content, distance[current->index]);
+	i = current->index;
+	edge = current->edges;
+	while (edge && visited[i] == 0)
+	{
+		temp = distance[i] + edge->weight;
+		if (distance[edge->dest->index] > temp)
+		{
+			distance[edge->dest->index] = temp;
+			path_via[edge->dest->index] = current;
+		}
+		edge = edge->next;
+	}
+	visited[i] = 1;
+	if (visited[target->index] == 1)
+		return;
+
+	recursive_dijkstra(graph, distance, visited, path_via, start, target, idx);
+}
+
+/**
+ * init_dijkstra - Initializes Dijkstra's algorithm.
+ * @graph: Pointer to the graph.
+ * @distance: Pointer to the array of distances.
+ * @visited: Pointer to the array of visited vertices.
+ * @path_via: Pointer to the array of path vertices.
+ *
+ * Return: 0 on success, 1 on failure.
+ */
+int init_dijkstra(graph_t *graph, size_t **distance, size_t **visited,
+				  vertex_t ***path_via)
+{
+	size_t i;
+
+	*visited = calloc(graph->nb_vertices, sizeof(**visited));
+	if (!*visited)
+		return (1);
+
+	*path_via = calloc(graph->nb_vertices, sizeof(**path_via));
+	if (!*path_via)
+	{
+		free(*visited);
+		return (1);
+	}
+
+	*distance = malloc(graph->nb_vertices * sizeof(**distance));
+	if (!*distance)
+	{
+		free(*visited);
+		free(*path_via);
+		return (1);
+	}
+
+	for (i = 0; i < graph->nb_vertices; i++)
+		(*distance)[i] = ULONG_MAX;
+
+	return (0);
+}
+
+/**
+ * dijkstra_graph - Searches for the shortest path
+ * from a starting point to a target point in a graph.
+ * @graph: Pointer to the graph.
+ * @start: Pointer to the start vertex.
+ * @target: Pointer to the target vertex.
+ *
+ * Return: Queue containing the path from start to target,
+ * or NULL if no path found.
  */
 queue_t *dijkstra_graph(graph_t *graph, vertex_t const *start,
 vertex_t const *target)
 {
-queue_t *path, *priority_queue;
-city_t **cities;
-city_t *city, *start_city;
-int *visited, success;
-char *name;
-size_t j;
-if (!graph || !start || !target)
-return (NULL);
-visited = malloc(graph->nb_vertices * sizeof(*visited));
-if (!visited)
-return (NULL);
-for (j = 0; j < graph->nb_vertices; j++)
-{
-visited[j] = 0;
-}
-cities = malloc(graph->nb_vertices * sizeof(city_t *));
-if (!cities)
-{
-free(visited);
-return (NULL); }
-for (j = 0; j < graph->nb_vertices; j++)
-{
-cities[j] = NULL;
-}
-start_city = (city_t *)malloc(sizeof(city_t));
-if (!start_city)
-{
-free(visited);
-free(cities);
-return (NULL); }
-start_city->name = strdup(start->content);
-start_city->parent = NULL;
-start_city->value = 0;
-cities[start->index] = start_city;
-priority_queue = queue_create();
-if (!priority_queue)
-{
-free(start_city->name);
-free(start_city);
-free(visited);
-free(cities);
-return (NULL); }
-queue_push_front(priority_queue, (void *)start);
-success = dijkstra_graph_backtrack(cities, priority_queue,
-visited, start, target);
-if (!success)
-{
-queue_delete(priority_queue);
-free(start_city->name);
-free(start_city);
-free(visited);
-free(cities);
-return (NULL);
-}
-path = queue_create();
-if (!path)
-{
-free(visited);
-free_cities(graph, cities);
-queue_delete(priority_queue);
-return (NULL); }
-for (city = cities[target->index]; city != NULL; city = city->parent)
-{
-name = strdup(city->name);
-queue_push_front(path, name); }
-free(visited);
-free_cities(graph, cities);
-queue_delete(priority_queue);
-return (path);
-}
+	size_t *distance = NULL, *visited = NULL;
+	queue_t *queue = NULL;
+	vertex_t **path_via = NULL;
 
-/**
- * dijkstra_graph_backtrack - searches for shortest path from start to target
- * @cities: predecessor array
- * @priority_queue: min heapish priority queue
- * @visited: array for tracking visited vertices
- * @start: pointer to the starting vertex
- * @target: pointer to the target vertex
- * Return: 1 on success else 0
- */
-int dijkstra_graph_backtrack(city_t **cities, queue_t *priority_queue,
-int *visited, vertex_t const *start, vertex_t const *target)
-{
-edge_t *edge;
-vertex_t *curr;
-city_t *city;
-for (curr = (vertex_t *) dequeue(priority_queue); curr;
-curr = (vertex_t *) dequeue(priority_queue))
-{
-printf("Checking %s, distance from %s is %d\n", curr->content,
-start->content, cities[curr->index]->value);
-visited[curr->index] = 1;
-if (strcmp(curr->content, target->content) == 0)
-return (1);
-for (edge = curr->edges; edge; edge = edge->next)
-{
-if (!visited[edge->dest->index]) 
-{
-if (cities[edge->dest->index] && (cities[curr->index]->value + edge->weight) <
-cities[edge->dest->index]->value)
-{
-cities[edge->dest->index]->value = cities[curr->index]->value + edge->weight;
-cities[edge->dest->index]->parent = cities[curr->index];
-}
-if (!cities[edge->dest->index])
-{
-city = (city_t *)malloc(sizeof(city_t));
-if (!city)
-return (0);
-city->name = strdup(edge->dest->content);
-city->parent = cities[curr->index];
-city->value = cities[curr->index]->value + edge->weight;
-queue_push_back(priority_queue, edge->dest);
-cities[edge->dest->index] = city;
-}
-}
-}
-move_smallest_front(priority_queue, cities); }
-return (0);
-}
+	if (!graph || !start || !target)
+		return (NULL);
 
-/**
- * move_smallest_front - min heapish queue for making smallest front
- * @priority_queue: priority queue to go through
- * @cities: predecessor array that tracks distances
- */
-void move_smallest_front(queue_t *priority_queue, city_t **cities)
-{
-vertex_t *smallest, *vertex;
-queue_node_t *current, *smallest_node, *temp;
-if (!priority_queue->front || !priority_queue->front->next)
-return;
-smallest = (vertex_t *) priority_queue->front->ptr;
-smallest_node = priority_queue->front;
-for (current = priority_queue->front; current; current = current->next)
-{
-vertex = (vertex_t *)current->ptr;
-if (cities[vertex->index]->value < cities[smallest->index]->value )
-{
-smallest = vertex;
-smallest_node = current;
-}
-}
-if (smallest_node == priority_queue->front)
-return;
-if (smallest_node->prev)
-smallest_node->prev->next = smallest_node->next;
-if (smallest_node->next)
-smallest_node->next->prev = smallest_node->prev;
-temp = priority_queue->front;
-priority_queue->front = smallest_node;
-smallest_node->next = temp;
-smallest_node->prev = NULL;
-if (temp)
-temp->prev = smallest_node;
-}
+	if (init_dijkstra(graph, &distance, &visited, &path_via) != 0)
+		return (NULL);
 
-/**
- * free_cities - frees predecessor array
- * @graph: graph
- * @cities: predecessor array
- */
-void free_cities(graph_t *graph, city_t **cities)
-{
-size_t i;
-for (i = 0; i < graph->nb_vertices; i++)
-{
-if (cities[i] != NULL)
-{
-free(cities[i]->name);
-free(cities[i]);
-}
-}
-free(cities);
+	queue = queue_create();
+	if (!queue)
+	{
+		free(visited);
+		free(distance);
+		free(path_via);
+		return (NULL);
+	}
+
+	distance[start->index] = 0;
+	recursive_dijkstra(graph, distance, visited, path_via, start, target, 0);
+
+	insert_into_queue(graph, queue, path_via, start, target);
+	free(visited);
+	free(distance);
+	free(path_via);
+
+	if (!queue->front)
+	{
+		queue_delete(queue);
+		return (NULL);
+	}
+
+	return (queue);
 }
