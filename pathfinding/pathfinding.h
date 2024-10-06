@@ -7,6 +7,8 @@
 #include <string.h>
 #include <limits.h>
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * struct point_s - Structure storing coordinates
