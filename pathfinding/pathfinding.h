@@ -10,6 +10,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NUM_DIRECTIONS 4
+#define h(x1, y1, x2, y2)  (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)))
+
+/**
+ * enum direction_s - Defines directions to move
+ * @RIGHT: Move to the right (east)
+ * @BOTTOM: Move downwards (south)
+ * @LEFT: Move to the left (west)
+ * @TOP: Move upwards (north)
+ * author: Frank Onyema Orji
+ */
+enum direction_s
+{
+	RIGHT,
+	BOTTOM,
+	LEFT,
+	TOP
+};
+
 /**
  * struct point_s - Structure storing coordinates
  *
